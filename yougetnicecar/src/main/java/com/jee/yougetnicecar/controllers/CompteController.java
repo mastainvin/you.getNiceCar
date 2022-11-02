@@ -6,12 +6,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
-@RequestMapping("/")
 public class CompteController {
 
-    @GetMapping("/")
-    public String compte(Model model) {
-        model.addAttribute("title", "Compte");
-        return "compte";
-    }
 }
