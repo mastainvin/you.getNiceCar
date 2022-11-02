@@ -1,5 +1,6 @@
 package com.jee.yougetnicecar.models;
 
+
 import javax.persistence.*;
 
 @Entity
@@ -29,6 +30,22 @@ public class Utilisateur {
     @OneToOne
     @JoinColumn(name = "panier_courant_id")
     private Panier panier_courant;
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public Panier getPanierCourant() {
+        return panier_courant;
+    }
+
+    public void setPanierCourant(Panier panierCourant) {
+        this.panier_courant = panier_courant;
+    }
 
     public Panier getPanier_courant() {
         return panier_courant;

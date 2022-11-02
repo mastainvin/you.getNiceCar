@@ -5,6 +5,6 @@
     <title>Admin Utilisateurs</title>
 </head>
 <body>
-    <h1>${title}</h1>
+<jsp:include page="navbar.jsp" />
 </body>
 </html>
