@@ -1,4 +1,4 @@
-<%@ page import="jdk.internal.util.xml.impl.Pair" %>
+<jsp:useBean id="erreur" scope="request" type="java.lang.String"/>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
@@ -13,6 +13,7 @@
 </style>
 <body>
 
+
 <div class="mdl-layout mdl-js-layout mdl-layout--fixed-header">
     <jsp:include page="navbar.jsp" />
     <main class="mdl-layout__content ">
@@ -20,6 +21,9 @@
 
             <h2>Produits</h2>
             <hr/>
+            <div>
+                ${erreur}
+            </div>
             <div class="mdl-grid center-items">
                 <div class="mdl-cell mdl-cell--8-col">
                     <table class="mdl-data-table mdl-js-data-table mdl-shadow--2dp">

@@ -2,5 +2,9 @@ package com.jee.yougetnicecar.models;
 
 public enum Role {
     ADMIN,
-    USER
+    USER;
+
+    public boolean getADMIN() {
+        return this == ADMIN;
+    }
 }

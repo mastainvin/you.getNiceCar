@@ -4,14 +4,11 @@ import com.jee.yougetnicecar.dtos.UtilisateurConnexionDto;
 import com.jee.yougetnicecar.dtos.UtilisateurInscriptionDto;
 import com.jee.yougetnicecar.exceptions.ConnexionException;
 import com.jee.yougetnicecar.exceptions.InscriptionException;
+import com.jee.yougetnicecar.exceptions.NotAdminException;
 import com.jee.yougetnicecar.exceptions.ResourceNotFoundException;
-import com.jee.yougetnicecar.models.Panier;
-import com.jee.yougetnicecar.models.Role;
 import com.jee.yougetnicecar.models.Utilisateur;
-import com.jee.yougetnicecar.repositories.PanierRepository;
 import com.jee.yougetnicecar.repositories.UtilisateurRepository;
 import com.jee.yougetnicecar.services.UtilisateurService;
-import jdk.jshell.execution.Util;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -20,7 +17,6 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.servlet.view.RedirectView;
 
-import java.util.ArrayList;
 import java.util.Objects;
 import java.util.Optional;
 
@@ -65,14 +61,7 @@ public class UtilisateurController {
         return new RedirectView("/", true);
     }
 
-    @ExceptionHandler(ConnexionException.class)
-    public ModelAndView connexionException(ConnexionException e) {
-        final ModelAndView modelAndView = new ModelAndView();
-        modelAndView.addObject("utilisateurConnexionDto", e.getUtilisateurConnexionDto());
-        modelAndView.addObject("erreur", e.getMessage());
-        modelAndView.setViewName("connexion-error");
-        return modelAndView;
-    }
+
 
     @GetMapping("/inscription")
     public String inscription(Model model) {
@@ -103,14 +92,7 @@ public class UtilisateurController {
         return new RedirectView("/", true);
     }
 
-    @ExceptionHandler(InscriptionException.class)
-    public ModelAndView inscriptionException(InscriptionException e) {
-        final ModelAndView modelAndView = new ModelAndView();
-        modelAndView.addObject("utilisateurInscriptionDto", e.getUtilisateurInscriptionDto());
-        modelAndView.addObject("erreur", e.getMessage());
-        modelAndView.setViewName("inscription-error");
-        return modelAndView;
-    }
+
 
     @GetMapping("/deconnexion")
     public RedirectView deconnexion(Model model, RedirectAttributes attributes) {
@@ -165,4 +147,33 @@ public class UtilisateurController {
         }
         return null;
     }
+
+
+
+    // Exceptions
+
+    @ExceptionHandler(ConnexionException.class)
+    public ModelAndView connexionException(ConnexionException e) {
+        final ModelAndView modelAndView = new ModelAndView();
+        modelAndView.addObject("utilisateurConnexionDto", e.getUtilisateurConnexionDto());
+        modelAndView.addObject("erreur", e.getMessage());
+        modelAndView.setViewName("connexion-error");
+        return modelAndView;
+    }
+
+
+    @ExceptionHandler(InscriptionException.class)
+    public ModelAndView inscriptionException(InscriptionException e) {
+        final ModelAndView modelAndView = new ModelAndView();
+        modelAndView.addObject("utilisateurInscriptionDto", e.getUtilisateurInscriptionDto());
+        modelAndView.addObject("erreur", e.getMessage());
+        modelAndView.setViewName("inscription-error");
+        return modelAndView;
+    }
+
+    @ExceptionHandler(NotAdminException.class)
+    public RedirectView notAdminException(NotAdminException e) {
+        return new RedirectView("/", true);
+    }
+
 }
