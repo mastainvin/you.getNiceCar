@@ -45,7 +45,10 @@ public class ProduitController {
 
     @GetMapping("/boutique")
     public String voirLaBoutique(@ModelAttribute Utilisateur utilisateur) {
-        return null;
+        //List<Produit> produits = produitRepository.findAll();
+        //List<Marque> marques = marqueRepository.findAll();
+        
+    	return "boutique";
     }
 
     // Utilisateur Admin
