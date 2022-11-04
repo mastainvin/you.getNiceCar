@@ -27,10 +27,14 @@
         <!-- Navigation -->
         <nav class="mdl-navigation">
             <c:if test="${utilisateur.login != null}">
-                <a class="mdl-navigation__link" type="button"  onclick="location.href='/deconnexion'" >Se deconnecter</a>
+                <c:if test="${utilisateur.role == 'USER' }">
+            	<a class="mdl-navigation__link" type="button"  onclick="location.href='/produit/boutique'" >Boutique</a>
+            	<a class="mdl-navigation__link" type="button"  onclick="location.href='/panier'" >Mon Panier</a>
+            	</c:if>
                 <c:if test="${utilisateur.role == 'ADMIN'}">
                     <a class="mdl-navigation__link" type="button"  onclick="location.href='/produit/admin'">Administration</a>
                 </c:if>
+                <a class="mdl-navigation__link" type="button"  onclick="location.href='/deconnexion'" >Se deconnecter</a>
             </c:if>
             <c:if test="${utilisateur.login == null}">
                 <a class="mdl-navigation__link" type="button"  onclick="location.href='/connexion'">Se connecter</a>
@@ -43,10 +47,14 @@
     <span class="mdl-layout-title">you.getNiceCar()</span>
     <nav class="mdl-navigation">
         <c:if test="${utilisateur.login != null}">
-            <a class="mdl-navigation__link" type="button"  onclick="location.href='/deconnexion'" >Se deconnecter</a>
+            <c:if test="${utilisateur.role == 'USER' }">
+            	<a class="mdl-navigation__link" type="button"  onclick="location.href='/produit/boutique'" >Boutique</a>
+            	<a class="mdl-navigation__link" type="button"  onclick="location.href='/panier'" >Mon Panier</a>
+            </c:if>
             <c:if test="${utilisateur.role == 'ADMIN'}">
                 <a class="mdl-navigation__link" type="button"  onclick="location.href='/produit/admin'">Administration</a>
             </c:if>
+             <a class="mdl-navigation__link" type="button"  onclick="location.href='/deconnexion'" >Se deconnecter</a>
         </c:if>
         <c:if test="${utilisateur.login == null}">
             <a class="mdl-navigation__link" type="button"  onclick="location.href='/connexion'">Se connecter</a>
