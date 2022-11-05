@@ -19,8 +19,8 @@ public class Produit {
     @Column(name = "annee")
     private Integer annee;
 
-    @Column(name = "image_path")
-    private String imagePath;
+  /**  @Column(name = "image_path")
+    private String imagePath;*/
 
     @Column(name = "stock")
     private Integer stock;
@@ -56,13 +56,13 @@ public class Produit {
         this.stock = stock;
     }
 
-    public String getImagePath() {
+   /** public String getImagePath() {
         return imagePath;
     }
 
     public void setImagePath(String imagePath) {
         this.imagePath = imagePath;
-    }
+    }*/
 
     public Integer getAnnee() {
         return annee;

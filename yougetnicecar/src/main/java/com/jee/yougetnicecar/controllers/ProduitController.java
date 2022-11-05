@@ -18,6 +18,7 @@ import java.util.List;
 import java.util.Optional;
 
 import static com.jee.yougetnicecar.Utils.checkAdmin;
+import static com.jee.yougetnicecar.Utils.checkUser;
 
 @Controller
 @ControllerAdvice
@@ -44,10 +45,12 @@ public class ProduitController {
     // Utilisateur normal
 
     @GetMapping("/boutique")
-    public String voirLaBoutique(@ModelAttribute Utilisateur utilisateur) {
-        //List<Produit> produits = produitRepository.findAll();
-        //List<Marque> marques = marqueRepository.findAll();
-        
+    public String voirLaBoutique(Model model) {
+    	checkUser(model);
+    	List<Produit> produits = produitRepository.findAll();
+    	List<Marque> marques= marqueRepository.findAll();
+        model.addAttribute("produits", produits);
+        model.addAttribute("marques",marques);
     	return "boutique";
     }
 
@@ -90,7 +93,7 @@ public class ProduitController {
 
         // TODO : Ajouter l'image créer un chemin vers l'image et l'enregistrer dans la base de donnée
 
-        produit.setImagePath(produitDto.getImagePath());
+      //  produit.setImagePath(produitDto.getImagePath());
 
         produitRepository.save(produit);
 
@@ -117,7 +120,7 @@ public class ProduitController {
     public RedirectView modifier(Model model, @PathVariable Long produitId, @ModelAttribute("produit") Produit newProduit) {
         checkAdmin(model);
 
-        if(newProduit.getModele().isEmpty() || newProduit.getModele() == null || newProduit.getMotorisation() == null || newProduit.getPrix() == null || newProduit.getMarque() == null || newProduit.getStock() == null || newProduit.getStock() < 0 || newProduit.getPrix() < 0 || newProduit.getImagePath() == null){
+        if(newProduit.getModele().isEmpty() || newProduit.getModele() == null || newProduit.getMotorisation() == null || newProduit.getPrix() == null || newProduit.getMarque() == null || newProduit.getStock() == null || newProduit.getStock() < 0 || newProduit.getPrix() < 0 /**|| newProduit.getImagePath() == null**/){
             throw new ProduitAdminException("Tous les champs doivent être remplis.");
 
         }
@@ -129,7 +132,7 @@ public class ProduitController {
         produit.setMarque(newProduit.getMarque());
         produit.setAnnee(newProduit.getAnnee());
         produit.setStock(newProduit.getStock());
-        produit.setImagePath(newProduit.getImagePath());
+       // produit.setImagePath(newProduit.getImagePath());
         produitRepository.save(produit);
 
         return new RedirectView("/produit/admin", true);
