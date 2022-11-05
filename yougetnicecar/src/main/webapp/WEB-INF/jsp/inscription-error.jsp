@@ -15,19 +15,44 @@
 <body>
 <jsp:include page="navbar.jsp" />
 
-    <%--@elvariable id="utilisateurInscriptionDto" type="com.jee.yougetnicecar.dtos.UtilisateurInscriptionDto"--%>
-    <form:form action="/inscription" method="post" modelAttribute="utilisateurInscriptionDto">
-        <form:label path="username">Nom d'utilisateur: </form:label> <form:input type="text" path="username"/>
-        <form:label path="password">Mot de passe: </form:label> <form:input type="text" path="password"/>
-        <form:label path="repeatPassword">Répétez le mot de passe: </form:label> <form:input path="repeatPassword"/>
-        <form:label path="nom">Nom: </form:label> <form:input type="text" path="nom"/>
-        <form:label path="prenom">Prenom: </form:label> <form:input type="text" path="prenom"/>
-
-        <jsp:useBean id="erreur" scope="request" type="java.lang.String"/>
-        <c:if test="${erreur != null}" >
-            <span>${erreur}</span>
-        </c:if>
-        <input type="submit" value="submit"/>
-    </form:form>
+<%--@elvariable id="utilisateurInscriptionDto" type="com.jee.yougetnicecar.dtos.UtilisateurInscriptionDto"--%>
+<div class="mdl-layout mdl-js-layout mdl-color--grey-100">
+	<div class="mdl-card mdl-shadow--6dp mdl-cell mdl-cell--middle mdl-cell--4-col">
+		<div class="mdl-card__title mdl-color--primary mdl-color-text--white">
+			<h2 class="mdl-card__title-text">Inscription</h2>
+		</div>
+	  	<div class="mdl-card__supporting-text mdl-cell mdl-cell--middle mdl-cell--8-col">
+				<form:form action="/inscription" method="post" modelAttribute="utilisateurInscriptionDto">
+					<jsp:useBean id="erreur" scope="request" type="java.lang.String"/>
+			        <c:if test="${erreur != null}" >
+			            <span style="color: red;">${erreur}</span>
+			        </c:if>
+				    <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+						<form:label path="username" class="mdl-textfield__label">Nom d'utilisateur </form:label>
+						<form:input type="text" path="username" class="mdl-textfield__input"/>
+					</div>
+					<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+						<form:label path="password" class="mdl-textfield__label">Mot de passe </form:label>
+						<form:input type="password" path="password" class="mdl-textfield__input"/>
+					</div>
+					<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+						<form:label path="repeatPassword" class="mdl-textfield__label">Répetez le mot de passe </form:label>
+						<form:input type="password" path="repeatPassword" class="mdl-textfield__input"/>
+					</div>
+					<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+						<form:label path="nom" class="mdl-textfield__label">Nom </form:label>
+						<form:input type="text" path="nom" class="mdl-textfield__input"/>
+					</div>
+					<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+						<form:label path="prenom" class="mdl-textfield__label">Prénom</form:label>
+						<form:input type="text" path="prenom" class="mdl-textfield__input"/>
+					</div>
+						<button type="submit" class="mdl-button mdl-button--colored mdl-js-button">SUBMIT</button>
+					</div>
+				</form:form>
+			</div>
+		</div>
+	</div>
+</div>
 </body>
 </html>
