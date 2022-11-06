@@ -46,11 +46,10 @@ public class ProduitController {
 
     @GetMapping("/boutique")
     public String voirLaBoutique(Model model) {
-    	checkUser(model);
     	List<Produit> produits = produitRepository.findAll();
     	List<Marque> marques= marqueRepository.findAll();
         model.addAttribute("produits", produits);
-        model.addAttribute("marques",marques);
+        model.addAttribute("marques", marques);
     	return "boutique";
     }
 
