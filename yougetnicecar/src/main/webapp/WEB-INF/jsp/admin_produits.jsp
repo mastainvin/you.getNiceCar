@@ -1,4 +1,3 @@
-<%@ page import="jdk.internal.util.xml.impl.Pair" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
@@ -142,7 +141,7 @@
 
                                 </form:form>
                                 <td>
-                                    <form:form action="/produit/supprimer/${marque.id}" method="post" modelAttribute="produit" id="${marque.id}">
+                                    <form:form action="/marque/supprimer/${marque.id}" method="post" modelAttribute="marque" id="${marque.id}">
                                         <input type="submit" value="Supprimer" class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored"/>
                                     </form:form>
                                 </td>
@@ -166,12 +165,6 @@
         </div>
     </main>
 </div>
-
-
-
-
-
-
 
 </body>
 </html>
