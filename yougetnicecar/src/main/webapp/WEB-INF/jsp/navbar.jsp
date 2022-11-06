@@ -31,7 +31,7 @@
         <nav class="mdl-navigation">
             <c:if test="${utilisateur.login != null}">
             	<button type="submit" style="background-color: #f5f5f5; margin-right: 10px;" class="mdl-button" onclick="location.href='/compte'"> 
-				<i class="mdl-icon-toggle__label material-icons">person</i> FLO</button>
+				<i class="mdl-icon-toggle__label material-icons">person</i> ${utilisateur.login}</button>
                 <button type="submit" style="background-color: #f5f5f5; margin-right: 10px;" class="mdl-button" onclick="location.href='/deconnexion'">
                 <i class="mdl-icon-toggle__label material-icons">logout</i> Deconnexion</button>
                 <c:if test="${utilisateur.role == 'ADMIN'}">
