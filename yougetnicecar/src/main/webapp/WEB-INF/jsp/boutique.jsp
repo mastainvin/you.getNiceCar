@@ -5,34 +5,38 @@
     <title>Boutique</title>
 </head>
 <body>
-<jsp:include page="navbar.jsp" />
-<h1>Liste des produits</h1>
-            <table>
-                <thead>
-                    <tr> 
-                        <th>Modèle</th>
-                        <th>Marque</th>
-                        <th>Année</th>
-                        <th>Stock</th>
-                        <th>Motorisation</th>
-                        <th>Prix</th>
-                        <th></th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <c:forEach var ="produit" items="${produits}">
-                    	<tr>
-                        <td><c:out value="${produit.modele}"/></td>
-                        <td><c:out value="${produit.marque.nom}"/></td>
-                        <td><c:out value="${produit.annee}"/></td>
-                        <td><c:out value="${produit.stock}"/></td>
-                        <td><c:out value="${produit.motorisation}"/></td>
-                        <td><c:out value="${produit.prix}"/></td>
-                        <td><button type="submit">Ajouter au panier</button></td>
-                    	</tr> 
-                    </c:forEach>      
-                </tbody>
-            </table>
-       
+
+<div class="mdl-layout mdl-js-layout mdl-layout--fixed-header">
+    <jsp:include page="navbar.jsp" />
+    <main class="mdl-layout__content ">
+        <div class="page-content mdl-layout__container">
+        <div>
+        	<div class="mdl-grid">
+   			<c:forEach var ="produit" items="${produits}">
+	  			<div class="mdl-card mdl-shadow--6dp mdl-cell mdl-cell--middle mdl-cell--6-col">
+					<div class="mdl-card__title mdl-color--primary mdl-color-text--white">
+						<h2 class="mdl-card__title-text">${produit.modele} (${produit.annee}) ${produit.motorisation}</h2>
+						<h2 style="position: absolute; right: 20px;" class="mdl-card__title-text">${produit.marque.nom}</h2>
+					</div>
+					<div>IMG</div>
+					<div>
+						<div style="position: absolute; bottom: 10px; left: 15px; width: 30%; text-align: left">
+							<span>Stock : ${produit.stock}</span>
+						</div>
+						<div style="position: absolute; bottom: 0px; left: 0; right: 0; margin-left: auto; margin-right: auto; width: 30%; text-align: center;">
+							<button type="submit" class="mdl-button mdl-button--colored mdl-js-button">AJOUTER AU PANIER</button>
+						</div>
+						<div style="position: absolute; bottom: 10px; right: 15px; width: 30%; text-align: right;">
+							<span>Prix : ${produit.prix}€</span>
+						</div>
+					</div>
+				</div>
+			</c:forEach>
+			</div>
+   		</div>
+   		</div>
+   	</main>
+</div>
+
 </body>
 </html>
