@@ -53,7 +53,7 @@
     <nav class="mdl-navigation">
         <a class="mdl-navigation__link" type="button" onclick="location.href='/'">
         <i class="mdl-icon-toggle__label material-icons">home</i> Accueil</a>
-        <a class="mdl-navigation__link" type="button" onclick="location.href='/boutique'">
+        <a class="mdl-navigation__link" type="button" onclick="location.href='/produit/boutique'">
         <i class="mdl-icon-toggle__label material-icons">shopping_cart</i> Boutique</a>
         <a class="mdl-navigation__link" type="button" onclick="location.href='/panier'">
         <i class="mdl-icon-toggle__label material-icons">shopping_bag</i> Panier</a>
