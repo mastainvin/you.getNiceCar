@@ -1,5 +1,6 @@
 package com.jee.yougetnicecar.controllers;
 
+import com.jee.yougetnicecar.FileUploadUtil;
 import com.jee.yougetnicecar.dtos.MarqueDto;
 import com.jee.yougetnicecar.dtos.ProduitDto;
 import com.jee.yougetnicecar.exceptions.ProduitAdminException;
@@ -10,11 +11,15 @@ import com.jee.yougetnicecar.repositories.ProduitRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
 
+import java.io.IOException;
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 
 import static com.jee.yougetnicecar.Utils.checkAdmin;
@@ -66,7 +71,7 @@ public class ProduitController {
         model.addAttribute("motorisations", Motorisation.values());
         model.addAttribute("produitDto", new ProduitDto());
         model.addAttribute("marqueDto", new MarqueDto());
-        model.addAttribute("produit", new Produit());
+        model.addAttribute("produit", new ProduitDto());
         model.addAttribute("marque", new Marque());
 
         return "admin_produits";
@@ -76,7 +81,7 @@ public class ProduitController {
     public RedirectView ajouterProduit(Model model, @ModelAttribute("produitDto") ProduitDto produitDto) {
 
 
-        if(produitDto.getModele().isEmpty() || produitDto.getModele() == null || produitDto.getMotorisation() == null || produitDto.getPrix() == null || produitDto.getMarque() == null || produitDto.getStock() == null || produitDto.getStock() < 0 || produitDto.getPrix() < 0 || produitDto.getImagePath() == null){
+        if(produitDto.getModele().isEmpty() || Objects.equals(produitDto.getModele(), "") || produitDto.getMotorisation() == null || produitDto.getPrix() == null || produitDto.getMarque() == null || produitDto.getStock() == null || produitDto.getStock() < 0 || produitDto.getPrix() < 0 || Objects.equals(produitDto.getImagePath(), "")){
             throw new ProduitAdminException("Tous les champs doivent être remplis.");
         }
 
@@ -89,10 +94,7 @@ public class ProduitController {
         produit.setMarque(produitDto.getMarque());
         produit.setAnnee(produitDto.getAnnee());
         produit.setStock(produitDto.getStock());
-
-        // TODO : Ajouter l'image créer un chemin vers l'image et l'enregistrer dans la base de donnée
-
-      //  produit.setImagePath(produitDto.getImagePath());
+        produit.setImagePath(produitDto.getImagePath());
 
         produitRepository.save(produit);
 
@@ -131,7 +133,7 @@ public class ProduitController {
         produit.setMarque(newProduit.getMarque());
         produit.setAnnee(newProduit.getAnnee());
         produit.setStock(newProduit.getStock());
-       // produit.setImagePath(newProduit.getImagePath());
+        produit.setImagePath(newProduit.getImagePath());
         produitRepository.save(produit);
 
         return new RedirectView("/produit/admin", true);

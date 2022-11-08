@@ -40,7 +40,7 @@
                         <tbody>
                         <c:forEach items="${produits}" var="produit" varStatus="pStatus">
                             <tr>
-                                    <%--@elvariable id="produit" type="com.jee.yougetnicecar.models.Produit"--%>
+                                    <%--@elvariable id="produit" type="com.jee.yougetnicecar.models.ProduitDto"--%>
                                 <form:form action="/produit/modifier/${produit.id}" method="post" modelAttribute="produit" id="${produit.id}">
                                     <td><form:input class="mdl-textfield__input" type="text" path="modele" value="${produit.modele}"/></td>
                                     <td><form:input class="mdl-textfield__input" type="number" path="prix" value="${produit.prix}"/></td>
@@ -77,7 +77,7 @@
                 <div class="mdl-cell mdl-cell--4-col ">
                     <div class="demo-card-wide mdl-card mdl-shadow--2dp mdl-grid center-items">
                     <%--@elvariable id="produitDto" type="com.jee.yougetnicecar.dtos.ProduitDto"--%>
-                    <form:form action="/produit/ajouter" method="post" modelAttribute="produitDto">
+                    <form:form action="/produit/ajouter" method="post" modelAttribute="produitDto" enctype="multipart/form-data">
                             <div class="mdl-textfield mdl-js-textfield">
                                 <form:label path="modele" class="mdl-textfield__label" >Modèle</form:label> <form:input class="mdl-textfield__input" type="text" path="modele"/>
                             </div>
@@ -89,7 +89,6 @@
                         </div>
                         <div class="mdl-textfield mdl-js-textfield">
                             <form:label path="imagePath" class="mdl-textfield__label">Image</form:label> <form:input  class="mdl-textfield__input" type="text" path="imagePath"/>
-
                         </div>
                         <div class="mdl-textfield mdl-js-textfield">
                             <form:label path="stock" class="mdl-textfield__label">Stock</form:label> <form:input  class="mdl-textfield__input" type="number" path="stock"/>

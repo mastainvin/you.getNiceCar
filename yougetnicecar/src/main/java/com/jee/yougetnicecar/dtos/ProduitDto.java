@@ -2,9 +2,11 @@ package com.jee.yougetnicecar.dtos;
 
 import com.jee.yougetnicecar.models.Marque;
 import com.jee.yougetnicecar.models.Motorisation;
+import org.springframework.web.multipart.MultipartFile;
 
 public class ProduitDto {
 
+    private Long id;
     private String modele;
     private Integer prix;
     private Integer annee;
@@ -45,7 +47,6 @@ public class ProduitDto {
         this.imagePath = imagePath;
     }
 
-
     public String getModele() {
         return modele;
     }
@@ -68,5 +69,13 @@ public class ProduitDto {
 
     public void setAnnee(Integer annee) {
         this.annee = annee;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 }
