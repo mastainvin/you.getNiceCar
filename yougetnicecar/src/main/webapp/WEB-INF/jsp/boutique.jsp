@@ -1,5 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <html>
 <head>
     <title>Boutique</title>
@@ -24,7 +25,9 @@
 							<span>Stock : ${produit.stock}</span>
 						</div>
 						<div style="position: absolute; bottom: 0px; left: 0; right: 0; margin-left: auto; margin-right: auto; width: 30%; text-align: center;">
-							<button type="submit" class="mdl-button mdl-button--colored mdl-js-button">AJOUTER AU PANIER</button>
+							<form:form method="get" action="/ajouter/${produit.id}">
+								<button type="submit" name ="${produit.modele}" value="${produit.id}" class="mdl-button mdl-button--colored mdl-js-button">AJOUTER AU PANIER</button>
+							</form:form>
 						</div>
 						<div style="position: absolute; bottom: 10px; right: 15px; width: 30%; text-align: right;">
 							<span>Prix : ${produit.prix}€</span>

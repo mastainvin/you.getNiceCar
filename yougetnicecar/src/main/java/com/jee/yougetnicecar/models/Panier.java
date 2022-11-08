@@ -23,7 +23,7 @@ public class Panier {
     @Column(name = "etat_panier")
     private EtatPanier etatPanier;
 
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "panier_produits",
             joinColumns = @JoinColumn(name = "panier_id"),
             inverseJoinColumns = @JoinColumn(name = "produits_id"))

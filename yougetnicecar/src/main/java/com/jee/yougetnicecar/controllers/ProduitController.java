@@ -131,7 +131,7 @@ public class ProduitController {
         produit.setMarque(newProduit.getMarque());
         produit.setAnnee(newProduit.getAnnee());
         produit.setStock(newProduit.getStock());
-       // produit.setImagePath(newProduit.getImagePath());
+        //produit.setImagePath(newProduit.getImagePath());
         produitRepository.save(produit);
 
         return new RedirectView("/produit/admin", true);

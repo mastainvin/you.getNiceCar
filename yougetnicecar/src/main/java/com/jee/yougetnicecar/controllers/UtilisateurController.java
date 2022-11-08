@@ -1,12 +1,22 @@
 package com.jee.yougetnicecar.controllers;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.LocalDateTime;
+
+
 import com.jee.yougetnicecar.dtos.UtilisateurConnexionDto;
 import com.jee.yougetnicecar.dtos.UtilisateurInscriptionDto;
 import com.jee.yougetnicecar.exceptions.ConnexionException;
 import com.jee.yougetnicecar.exceptions.InscriptionException;
 import com.jee.yougetnicecar.exceptions.NotAdminException;
 import com.jee.yougetnicecar.exceptions.ResourceNotFoundException;
+import com.jee.yougetnicecar.models.EtatPanier;
+import com.jee.yougetnicecar.models.Panier;
+import com.jee.yougetnicecar.models.Produit;
 import com.jee.yougetnicecar.models.Utilisateur;
+import com.jee.yougetnicecar.repositories.PanierRepository;
+import com.jee.yougetnicecar.repositories.ProduitRepository;
 import com.jee.yougetnicecar.repositories.UtilisateurRepository;
 import com.jee.yougetnicecar.services.UtilisateurService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,8 +27,7 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.servlet.view.RedirectView;
 
-import java.util.Objects;
-import java.util.Optional;
+import java.util.*;
 
 @Controller
 @ControllerAdvice
@@ -28,6 +37,13 @@ public class UtilisateurController {
 
     @Autowired
     UtilisateurRepository utilisateurRepository;
+
+    @Autowired
+    PanierRepository panierRepository;
+
+   @Autowired
+   ProduitRepository produitRepository;
+
 
     @Autowired
     UtilisateurService utilisateurService;
@@ -114,21 +130,78 @@ public class UtilisateurController {
 
         return new RedirectView("/", true);
     }
-
+    /*
     @PostMapping("/panier/ajouter/{produitId}")
     public void ajouterAuPanier(@PathVariable Long produitId, Model model) {
         if(!model.containsAttribute("utilisateur")) {
             model.addAttribute(new Utilisateur());
         }
     }
+    */
+
+    @GetMapping("/ajouter/{produitId}")
+    public RedirectView ajouterAuPanier(Model model, @PathVariable Long produitId) {
+        Optional<Produit> produit = produitRepository.findById(produitId);
+
+        Utilisateur utilisateur = (Utilisateur)model.getAttribute("utilisateur");
+
+        List<Produit> produitList;
+
+        if(utilisateur.getPanier_courant() == null)
+       {
+            DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+            LocalDateTime now = LocalDateTime.now();
+
+            produitList = new ArrayList<Produit>();
+            produitList.add(produit.get());
+
+           Panier panier = new Panier();
+           panier.setUtilisateur(utilisateur);
+           panier.setDate(LocalDate.parse(dtf.format(now).toString()));
+           panier.setProduits(produitList);
+           panier.setEtatPanier(EtatPanier.EN_COURS);
+           utilisateur.setPanier_courant(panier);
+
+       }
+       else {
+           utilisateur.getPanier_courant().getProduits().add(produit.get());
+
+       }
+        panierRepository.save(utilisateur.getPanier_courant());
+        return new RedirectView("/produit/boutique", true);
+    }
+
+    @GetMapping("/modifierpanier/{produitId}/{quantite}")
+    public RedirectView modifPanier(Model model, @PathVariable int quantite,@PathVariable Long produitId) {
+        if(quantite == 0){
+
+            Utilisateur utilisateur = (Utilisateur)model.getAttribute("utilisateur");
+            //panierRepository.delete(utilisateur.getPanier_courant());
+            utilisateur.getPanier_courant().getProduits().remove(produitId);
+            model.addAttribute("utilisateur", utilisateur);
+            panierRepository.save(utilisateur.getPanier_courant());
+            System.out.println("panier supprimé");
+            return new RedirectView("/", true);
+        }
+        return new RedirectView("/panier", true);
+    }
 
     @GetMapping("/panier")
-    public String voirPanier(Model model) {
-        if(!model.containsAttribute("utilisateur")) {
-            model.addAttribute(new Utilisateur());
+        public String voirPanier(Model model) {
+
+        Utilisateur utilisateur = (Utilisateur)model.getAttribute("utilisateur");
+
+        HashMap<Produit, Integer> produitQuantite = new HashMap<Produit, Integer>();
+        for (Produit produit : utilisateur.getPanier_courant().getProduits()) {
+            if(produitQuantite.containsKey(produit)) {
+                produitQuantite.put(produit, produitQuantite.get(produit) + 1);
+            } else {
+                produitQuantite.put(produit, 1);
+            }
         }
 
-        return null;
+        model.addAttribute("panier_courant", produitQuantite);
+        return "panier";
     }
 
     // Admin
