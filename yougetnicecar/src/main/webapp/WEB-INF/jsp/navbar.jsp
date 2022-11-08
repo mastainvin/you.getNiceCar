@@ -24,7 +24,10 @@
 <header class="mdl-layout__header">
     <div class="mdl-layout__header-row">
         <!-- Title -->
-    	<span class="mdl-navigation__link mdl-layout-title" type="button" onclick="location.href='/'">you.getNiceCar()</span>
+    	<div class="mdl-navigation__link mdl-layout-title" type="submit" onclick="location.href='/'"/>
+    		<img src="https://www.pngmart.com/files/22/Car-Logo-PNG-Image.png" style="height: 100%;"/>
+    		<div style="position: absolute; left: 15px; top: 10px;">you.getNiceCar()</div>
+    	</div>
    		<!-- Add spacer, to align navigation to the right -->
         <div class="mdl-layout-spacer"></div>
         <!-- Navigation -->
