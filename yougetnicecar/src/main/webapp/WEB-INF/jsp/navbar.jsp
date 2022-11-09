@@ -21,36 +21,37 @@
 <!-- Uses a transparent header that draws on top of the layout's background -->
 
 
-<header class="mdl-layout__header">
+<header style="background: rgb(60,60,60);" class="mdl-layout__header">
     <div class="mdl-layout__header-row">
         <!-- Title -->
     	<div class="mdl-navigation__link mdl-layout-title" type="submit" onclick="location.href='/'"/>
-    		<img src="https://www.pngmart.com/files/22/Car-Logo-PNG-Image.png" style="height: 100%;"/>
-    		<div style="position: absolute; left: 15px; top: 10px;">you.getNiceCar()</div>
+    		<img src="https://www.pngmart.com/files/22/Car-Logo-PNG-Image.png" style="height: 70%; filter: invert(100%) sepia(0%) saturate(0%) hue-rotate(253deg) brightness(108%) contrast(92%);"/>
+    		<div style="position: absolute; left: 5px; top: 10px; font-style: italic;">you.getNiceCar()</div>
     	</div>
    		<!-- Add spacer, to align navigation to the right -->
         <div class="mdl-layout-spacer"></div>
         <!-- Navigation -->
         <nav class="mdl-navigation">
             <c:if test="${utilisateur.login != null}">
-            	<button type="submit" style="background-color: #f5f5f5; margin-right: 10px;" class="mdl-button" onclick="location.href='/compte'"> 
-				<i class="mdl-icon-toggle__label material-icons">person</i> ${utilisateur.login}</button>
-                <button type="submit" style="background-color: #f5f5f5; margin-right: 10px;" class="mdl-button" onclick="location.href='/deconnexion'">
-                <i class="mdl-icon-toggle__label material-icons">logout</i> Deconnexion</button>
+            	<button type="submit" style="background-color: rgb(50,50,50); color: white; margin-right: 10px; border-radius: 15px;" class="mdl-button" onclick="location.href='/compte'"> 
+				<i style="color: white;" class="mdl-icon-toggle__label material-icons">person</i> ${utilisateur.login}</button>
+                <button type="submit" style="background-color: rgb(50,50,50); color: white; margin-right: 10px; border-radius: 15px;" class="mdl-button" onclick="location.href='/deconnexion'">
+                <i style="color: white;" class="mdl-icon-toggle__label material-icons">logout</i> Deconnexion</button>
                 <c:if test="${utilisateur.role == 'ADMIN'}">
-                    <button type="submit" style="background-color: #f5f5f5; margin-right: 10px;" class="mdl-button" onclick="location.href='/produit/admin'">
-                <i class="mdl-icon-toggle__label material-icons">manage_accounts</i> Administration</button>
+                    <button type="submit" style="background-color: rgb(50,50,50); color: white; margin-right: 10px; border-radius: 15px;" class="mdl-button" onclick="location.href='/produit/admin'">
+                <i style="color: white;" class="mdl-icon-toggle__label material-icons">manage_accounts</i> Administration</button>
                 </c:if>
             </c:if>
             <c:if test="${utilisateur.login == null}">
-                <button type="submit" style="background-color: #f5f5f5; margin-right: 10px;" class="mdl-button" onclick="location.href='/connexion'">
-                <i class="mdl-icon-toggle__label material-icons">login</i> Connexion</button> 
-                <button type="submit" style="background-color: #f5f5f5; margin-left: 10px;" class="mdl-button" onclick="location.href='/inscription'">
-                <i class="mdl-icon-toggle__label material-icons">person_add</i> Inscription</button> 
+                <button type="submit" style="background-color: rgb(50,50,50); color: white; margin-right: 10px; border-radius: 15px;" class="mdl-button" onclick="location.href='/connexion'">
+                <i style="color: white;" class="mdl-icon-toggle__label material-icons">login</i> Connexion</button> 
+                <button type="submit" style="background-color: rgb(50,50,50); color: white; margin-left: 10px; border-radius: 15px;" class="mdl-button" onclick="location.href='/inscription'">
+                <i style="color: white;" class="mdl-icon-toggle__label material-icons">person_add</i> Inscription</button> 
             </c:if>
         </nav>
     </div>
 </header>
+
 <div class="mdl-layout__drawer">
     <span class="mdl-layout-title">you.getNiceCar()</span>
     <nav class="mdl-navigation">
