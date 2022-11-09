@@ -9,7 +9,7 @@
     <title>Accueil</title>
 </head>
 
-<body style="font-family: 'Montserrat';">
+<body style="font-family: 'Montserrat'; background: rgb(40,40,40);">
 
 <div class="mdl-layout mdl-js-layout">
     <jsp:include page="/WEB-INF/jsp/navbar.jsp" />
@@ -28,22 +28,22 @@
   		</div>
   		<div>
 	  		<div id="about_us" style="text-align: center; overflow-y: scroll;" class="mdl-grid">
-	  			<div class="mdl-card mdl-shadow--6dp mdl-cell mdl-cell--middle mdl-cell--4-col">
-					<div class="mdl-card__title mdl-color--primary mdl-color-text--white">
+	  			<div style="background: rgb(60,60,60);" class="mdl-card mdl-cell mdl-cell--middle mdl-cell--4-col">
+					<div style="background: rgb(80,80,80);" class="mdl-card__title mdl-color-text--white">
 						<h2 class="mdl-card__title-text">NOS VALEURS</h2>
 					</div>
 					<div class="mdl-card__supporting-text">
-						<div style="width: 35%; padding: 5px; border-radius: 10px; position: absolute; left: 30px; top: 80px; background-color: #42a362; color: white; font-size: 30px; text-align: left;"><i style="color: white;" class="mdl-icon-toggle__label material-icons">verified</i> Qualité</div>
-						<div style="width: 35%; padding: 5px; border-radius: 10px; position: absolute; left: 30px; top: 140px; background-color: #42a362; color: white; font-size: 30px; text-align: left;"><i style="color: white;" class="mdl-icon-toggle__label material-icons">handshake</i> Respect</div>
-						<div style="width: 35%; padding: 5px; border-radius: 10px; position: absolute; right: 30px; top: 80px; background-color: #42a362; color: white; font-size: 30px; text-align: left;"><i style="color: white;" class="mdl-icon-toggle__label material-icons">hearing</i> Ecoute</div>
-						<div style="width: 35%; padding: 5px; border-radius: 10px; position: absolute; right: 30px; top: 140px; background-color: #42a362; color: white; font-size: 30px; text-align: left;"><i style="color: white;" class="mdl-icon-toggle__label material-icons">security</i> Sécurité</div>
+						<div style="width: 35%; padding: 5px; border-radius: 10px; position: absolute; left: 30px; top: 80px; background-color: rgb(50,50,50); color: white; font-size: 30px; text-align: left;"><i style="color: white;" class="mdl-icon-toggle__label material-icons">verified</i> Qualité</div>
+						<div style="width: 35%; padding: 5px; border-radius: 10px; position: absolute; left: 30px; top: 140px; background-color: rgb(50,50,50); color: white; font-size: 30px; text-align: left;"><i style="color: white;" class="mdl-icon-toggle__label material-icons">handshake</i> Respect</div>
+						<div style="width: 35%; padding: 5px; border-radius: 10px; position: absolute; right: 30px; top: 80px; background-color: rgb(50,50,50); color: white; font-size: 30px; text-align: left;"><i style="color: white;" class="mdl-icon-toggle__label material-icons">hearing</i> Ecoute</div>
+						<div style="width: 35%; padding: 5px; border-radius: 10px; position: absolute; right: 30px; top: 140px; background-color: rgb(50,50,50); color: white; font-size: 30px; text-align: left;"><i style="color: white;" class="mdl-icon-toggle__label material-icons">security</i> Sécurité</div>
 					</div>
 				</div>
-	  			<div class="mdl-card mdl-shadow--6dp mdl-cell mdl-cell--middle mdl-cell--4-col">
-					<div class="mdl-card__title mdl-color--primary mdl-color-text--white">
+	  			<div style="background: rgb(60,60,60);" class="mdl-card mdl-cell mdl-cell--middle mdl-cell--4-col">
+					<div style="background: rgb(80,80,80);" class="mdl-card__title mdl-color-text--white">
 						<h2 class="mdl-card__title-text">A PROPOS DE NOUS</h2>
 					</div>
-					<div style="text-align: justify;" class="mdl-card__supporting-text">
+					<div style="text-align: justify; color: white;" class="mdl-card__supporting-text">
 						<div style="font-size: 16px;">
 							Il y a 3 semaines, nous avons décidé de nous lancer dans la création d'un site de vente de voitures en ligne.
 							Aujourd'hui you.getNiceCar() est le site n°1 de vente de voitures en ligne. Nous comptons déjà zéro 
@@ -51,11 +51,11 @@
 						</div>
 					</div>
 				</div>
-	  			<div class="mdl-card mdl-shadow--6dp mdl-cell mdl-cell--middle mdl-cell--4-col">
-					<div class="mdl-card__title mdl-color--primary mdl-color-text--white">
+	  			<div style="background: rgb(60,60,60);" class="mdl-card mdl-cell mdl-cell--middle mdl-cell--4-col">
+					<div style="background: rgb(80,80,80);" class="mdl-card__title mdl-color-text--white">
 						<h2 class="mdl-card__title-text">NOTRE MISSION</h2>
 					</div>
-					<div style="text-align: justify;" class="mdl-card__supporting-text">
+					<div style="text-align: justify; color: white;" class="mdl-card__supporting-text">
 						<div style="font-size: 16px;">
 							Notre mission est d'aider nos clients à trouver la voiture de leur rêve en toute simplicité et en toute sécurité. 
 							Nous faisons tout notre possible pour rendre l'expérience you.getNiceCar() la plus simple et la plus satisfaisante possible.
