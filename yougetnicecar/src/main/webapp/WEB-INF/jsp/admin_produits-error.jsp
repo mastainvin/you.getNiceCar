@@ -7,12 +7,12 @@
     <title>Admin Produits</title>
 </head>
 <style>
-    .page-content {
-        padding: 20px;
-    }
+.page-content {
+	padding: 20px;
+}
 </style>
-<body>
 
+<body>
 
 <div class="mdl-layout mdl-js-layout mdl-layout--fixed-header">
     <jsp:include page="navbar.jsp" />
@@ -21,7 +21,7 @@
 
             <h2>Produits</h2>
             <hr/>
-            <div>
+            <div style="color: red;">
                 ${erreur}
             </div>
             <div class="mdl-grid center-items">
@@ -170,12 +170,6 @@
         </div>
     </main>
 </div>
-
-
-
-
-
-
 
 </body>
 </html>
