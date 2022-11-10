@@ -27,7 +27,7 @@ public class Utilisateur {
     @Column(name = "role")
     private Role role;
 
-    @OneToOne
+    @OneToOne(cascade = {CascadeType.PERSIST})
     @JoinColumn(name = "panier_courant_id")
     private Panier panier_courant;
 
@@ -44,16 +44,9 @@ public class Utilisateur {
     }
 
     public void setPanierCourant(Panier panierCourant) {
-        this.panier_courant = panier_courant;
+        this.panier_courant = panierCourant;
     }
 
-    public Panier getPanier_courant() {
-        return panier_courant;
-    }
-
-    public void setPanier_courant(Panier panier_courant) {
-        this.panier_courant = panier_courant;
-    }
 
     public Role getRole() {
         return role;

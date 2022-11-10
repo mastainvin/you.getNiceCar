@@ -1,7 +1,5 @@
 package com.jee.yougetnicecar.dtos;
 
-import javax.persistence.Column;
-
 public class CarteBleueDto {
 
     private String numero;

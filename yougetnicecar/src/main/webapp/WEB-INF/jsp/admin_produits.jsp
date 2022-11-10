@@ -77,13 +77,14 @@
                 <div class="mdl-cell mdl-cell--4-col ">
                     <div class="demo-card-wide mdl-card mdl-shadow--2dp mdl-grid center-items">
                     <%--@elvariable id="produitDto" type="com.jee.yougetnicecar.dtos.ProduitDto"--%>
-                    <form:form action="/produit/ajouter" method="post" modelAttribute="produitDto" enctype="multipart/form-data">
-                            <div class="mdl-textfield mdl-js-textfield">
-                                <form:label path="modele" class="mdl-textfield__label" >Modèle</form:label> <form:input class="mdl-textfield__input" type="text" path="modele"/>
-                            </div>
-                            <div class="mdl-textfield mdl-js-textfield">
-                                <form:label path="prix" class="mdl-textfield__label" >Prix</form:label> <form:input class="mdl-textfield__input" type="number" path="prix"/>
-                            </div>
+                    <form:form action="/produit/ajouter" method="post" modelAttribute="produitDto">
+                        <div class="mdl-textfield mdl-js-textfield">
+                            <form:label path="modele" class="mdl-textfield__label" >Modèle</form:label> <form:input class="mdl-textfield__input" type="text" path="modele"/>
+                        </div>
+                        <div class="mdl-textfield mdl-js-textfield">
+                            <form:label path="prix" class="mdl-textfield__label" >Prix</form:label> <form:input class="mdl-textfield__input" type="number" path="prix"/>
+                        </div>
+
                         <div class="mdl-textfield mdl-js-textfield">
                             <form:label path="annee" class="mdl-textfield__label">Année</form:label> <form:input  class="mdl-textfield__input" type="number" path="annee"/>
                         </div>

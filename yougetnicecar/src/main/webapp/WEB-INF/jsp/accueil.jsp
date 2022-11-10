@@ -10,7 +10,6 @@
 </head>
 
 <body style="font-family: 'Montserrat'; background: rgb(40,40,40);">
-
 <div class="mdl-layout mdl-js-layout">
     <jsp:include page="/WEB-INF/jsp/navbar.jsp" />
     <main class="mdl-layout__content">
