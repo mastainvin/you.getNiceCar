@@ -24,7 +24,7 @@
                                 <h2 style="position: absolute; right: 20px;"
                                     class="mdl-card__title-text">${produit.marque.nom}</h2>
                             </div>
-                            <div class="mdl-card__supporting-text mdl-color-text--white" style="background: rgba(0,0,0,0.5); position: absolute; bottom: 0; width: 97%; height: 5px;">
+                            <div class="mdl-card__supporting-text mdl-color-text--white" style="background: rgba(0,0,0,0.5); position: absolute; bottom: 0; width: 97%; height: 7.5px;">
                                 <div style="position: absolute; bottom: 10px; left: 15px; width: 30%; text-align: left">
                                     <c:if test="${produit.stock >= 1}">
                                             <div>En stock (${produit.stock})</div>
@@ -33,9 +33,9 @@
                                         <div>Rupture de stock</div>
                                     </c:if>
                                 </div>
-                                <div style="position: absolute; bottom: 0; left: 0; right: 0; margin-left: auto; margin-right: auto; width: 30%; text-align: center;">
+                                <div style="position: absolute; bottom: 0; left: 0; right: 0; margin-left: auto; margin-right: auto; text-align: center;">
                                     <form:form method="get" action="/ajouter/${produit.id}">
-                                        <button style="color: white; position: absolute; bottom: 0;" name="${produit.modele}" value="${produit.id}"
+                                        <button style="color: white; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -85%); border-radius: 15px;" name="${produit.modele}" value="${produit.id}"
                                                 class="mdl-button mdl-js-button">AJOUTER AU PANIER
                                         </button>
                                     </form:form>
