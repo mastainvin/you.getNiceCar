@@ -5,12 +5,10 @@ import java.time.format.DateTimeFormatter;
 import java.time.LocalDateTime;
 
 
+import com.jee.yougetnicecar.dtos.CarteBleueDto;
 import com.jee.yougetnicecar.dtos.UtilisateurConnexionDto;
 import com.jee.yougetnicecar.dtos.UtilisateurInscriptionDto;
-import com.jee.yougetnicecar.exceptions.ConnexionException;
-import com.jee.yougetnicecar.exceptions.InscriptionException;
-import com.jee.yougetnicecar.exceptions.NotAdminException;
-import com.jee.yougetnicecar.exceptions.ResourceNotFoundException;
+import com.jee.yougetnicecar.exceptions.*;
 import com.jee.yougetnicecar.models.EtatPanier;
 import com.jee.yougetnicecar.models.Panier;
 import com.jee.yougetnicecar.models.Produit;
@@ -28,6 +26,9 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.servlet.view.RedirectView;
 
 import java.util.*;
+import java.util.stream.Collectors;
+
+import static com.jee.yougetnicecar.Utils.checkUser;
 
 @Controller
 @ControllerAdvice
@@ -130,72 +131,95 @@ public class UtilisateurController {
 
         return new RedirectView("/", true);
     }
-    /*
-    @PostMapping("/panier/ajouter/{produitId}")
-    public void ajouterAuPanier(@PathVariable Long produitId, Model model) {
-        if(!model.containsAttribute("utilisateur")) {
-            model.addAttribute(new Utilisateur());
-        }
-    }
-    */
 
     @GetMapping("/ajouter/{produitId}")
     public RedirectView ajouterAuPanier(Model model, @PathVariable Long produitId) {
+        checkUser(model);
+
         Optional<Produit> produit = produitRepository.findById(produitId);
 
         Utilisateur utilisateur = (Utilisateur)model.getAttribute("utilisateur");
 
         List<Produit> produitList;
 
-        if(utilisateur.getPanier_courant() == null)
+        assert utilisateur != null;
+        if(utilisateur.getPanierCourant() == null)
        {
             DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd");
             LocalDateTime now = LocalDateTime.now();
 
-            produitList = new ArrayList<Produit>();
-            produitList.add(produit.get());
+            produitList = new ArrayList<>();
+            produit.ifPresent(produitList::add);
 
-           Panier panier = new Panier();
-           panier.setUtilisateur(utilisateur);
-           panier.setDate(LocalDate.parse(dtf.format(now).toString()));
-           panier.setProduits(produitList);
-           panier.setEtatPanier(EtatPanier.EN_COURS);
-           utilisateur.setPanier_courant(panier);
+            Panier panier = new Panier();
+            panier.setUtilisateur(utilisateur);
+            panier.setDate(LocalDate.parse(dtf.format(now)));
+            panier.setProduits(produitList);
+            panier.setEtatPanier(EtatPanier.EN_COURS);
 
        }
        else {
-           utilisateur.getPanier_courant().getProduits().add(produit.get());
-
+            produit.ifPresent(value -> utilisateur.getPanierCourant().getProduits().add(value));
        }
-        panierRepository.save(utilisateur.getPanier_courant());
+        utilisateurRepository.save(utilisateur);
         return new RedirectView("/produit/boutique", true);
     }
 
     @GetMapping("/modifierpanier/{produitId}/{quantite}")
     public RedirectView modifPanier(Model model, @PathVariable int quantite,@PathVariable Long produitId) {
-        if(quantite == 0){
+        checkUser(model);
+        if(quantite > 0){
 
             Utilisateur utilisateur = (Utilisateur)model.getAttribute("utilisateur");
-            //panierRepository.delete(utilisateur.getPanier_courant());
-            utilisateur.getPanier_courant().getProduits().remove(produitId);
-            model.addAttribute("utilisateur", utilisateur);
-            panierRepository.save(utilisateur.getPanier_courant());
-            System.out.println("panier supprimé");
-            return new RedirectView("/", true);
+            assert utilisateur != null;
+
+            int count = 0;
+            for (int i = 0; i < utilisateur.getPanierCourant().getProduits().size(); i++) {
+                if(Objects.equals(utilisateur.getPanierCourant().getProduits().get(i).getId(), produitId)){
+                    count++;
+                }
+            }
+
+            if(count > quantite) {
+                List<Produit> allSameProduits = utilisateur.getPanierCourant().getProduits().stream().filter(produit -> Objects.equals(produit.getId(), produitId)).collect(Collectors.toList());
+                for (int i = 0; i < count - quantite; i++) {
+                    utilisateur.getPanierCourant().getProduits().remove(allSameProduits.get(i));
+                }
+
+            }
+            else if(count < quantite){
+                for(int i = 0; i < quantite - count; i++) {
+                    Optional<Produit> produit = produitRepository.findById(produitId);
+                    produit.ifPresent(value -> utilisateur.getPanierCourant().getProduits().add(value));
+                }
+            }
+            utilisateurRepository.save(utilisateur);
+        } else if (quantite == 0) {
+            Utilisateur utilisateur = (Utilisateur)model.getAttribute("utilisateur");
+            assert utilisateur != null;
+            utilisateur.getPanierCourant().getProduits().removeIf(produit -> Objects.equals(produit.getId(), produitId));
+            utilisateurRepository.save(utilisateur);
         }
         return new RedirectView("/panier", true);
     }
 
     @GetMapping("/panier")
-        public String voirPanier(Model model) {
-
+    public String voirPanier(Model model) {
+        checkUser(model);
         Utilisateur utilisateur = (Utilisateur)model.getAttribute("utilisateur");
 
-        HashMap<Produit, Integer> produitQuantite = new HashMap<Produit, Integer>();
-        for (Produit produit : utilisateur.getPanier_courant().getProduits()) {
-            if(produitQuantite.containsKey(produit)) {
-                produitQuantite.put(produit, produitQuantite.get(produit) + 1);
-            } else {
+        HashMap<Produit, Integer> produitQuantite = new HashMap<>();
+        assert utilisateur != null;
+        for (Produit produit : utilisateur.getPanierCourant().getProduits()) {
+            boolean found = false;
+            for(Produit produit1: produitQuantite.keySet()){
+                if(Objects.equals(produit.getId(), produit1.getId())){
+                    produitQuantite.put(produit1, produitQuantite.get(produit1) + 1);
+                    found = true;
+                    break;
+                }
+            }
+            if(!found){
                 produitQuantite.put(produit, 1);
             }
         }
@@ -204,6 +228,15 @@ public class UtilisateurController {
         return "panier";
     }
 
+    @GetMapping("/paiement")
+    public String paiement(Model model) {
+        checkUser(model);
+
+        CarteBleueDto carteBleueDto = new CarteBleueDto();
+        model.addAttribute("carteBleueDto", carteBleueDto);
+
+        return "paiements";
+    }
     // Admin
 
     @PutMapping("/update/{userId}")
@@ -249,4 +282,6 @@ public class UtilisateurController {
         return new RedirectView("/", true);
     }
 
+    @ExceptionHandler(NotUserException.class)
+    public RedirectView notConnectedException(NotUserException e) { return new RedirectView("/", true); }
 }

@@ -4,6 +4,7 @@
 <html>
 <head>
     <title>Boutique</title>
+	<base href="${pageContext.request.contextPath}">
 </head>
 <body>
 
@@ -14,17 +15,16 @@
         <div>
         	<div class="mdl-grid">
    			<c:forEach var ="produit" items="${produits}">
-	  			<div class="mdl-card mdl-shadow--6dp mdl-cell mdl-cell--middle mdl-cell--6-col">
-					<div class="mdl-card__title mdl-color--primary mdl-color-text--white">
+	  			<div class="mdl-card mdl-shadow--6dp mdl-cell mdl-cell--middle mdl-cell--6-col" style="background-image: url(${produit.imagePath}); background-repeat:no-repeat; background-size: cover; height: 50vh">
+					<div class="mdl-card__title mdl-color-text--white" style="background: rgba(0,0,0,0.5)">
 						<h2 class="mdl-card__title-text">${produit.modele} (${produit.annee}) ${produit.motorisation}</h2>
 						<h2 style="position: absolute; right: 20px;" class="mdl-card__title-text">${produit.marque.nom}</h2>
 					</div>
-					<div>IMG</div>
 					<div>
 						<div style="position: absolute; bottom: 10px; left: 15px; width: 30%; text-align: left">
 							<span>Stock : ${produit.stock}</span>
 						</div>
-						<div style="position: absolute; bottom: 0px; left: 0; right: 0; margin-left: auto; margin-right: auto; width: 30%; text-align: center;">
+						<div style="position: absolute; bottom: 0; left: 0; right: 0; margin-left: auto; margin-right: auto; width: 30%; text-align: center;">
 							<form:form method="get" action="/ajouter/${produit.id}">
 								<button type="submit" name ="${produit.modele}" value="${produit.id}" class="mdl-button mdl-button--colored mdl-js-button">AJOUTER AU PANIER</button>
 							</form:form>
@@ -40,6 +40,5 @@
    		</div>
    	</main>
 </div>
-
 </body>
 </html>

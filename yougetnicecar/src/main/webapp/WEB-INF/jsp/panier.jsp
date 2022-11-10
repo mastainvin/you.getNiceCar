@@ -16,28 +16,37 @@
     }
 
 </script>
-
+<div class="mdl-layout mdl-js-layout mdl-layout--fixed-header">
     <jsp:include page="navbar.jsp" />
-    <table>
-        <c:forEach var ="panier" items="${panier_courant}">
-            <tr>
-                <td><c:out value="${panier.key.modele}"/></td>
-                <td><c:out value="${panier.key.marque.nom}"/></td>
-                <td><c:out value="${panier.key.annee}"/></td>
-                <td><c:out value="${panier.key.stock}"/></td>
-                <td><c:out value="${panier.key.motorisation}"/></td>
-                <td><c:out value="${panier.key.prix}"/></td>
-                <td><form:form id="formSoftware" method="get" action="/modifierpanier/${panier.key.id}/"><select onchange="toSubmit(this.value,${panier.key.id})">
-                    <option value="0">Supprimer</option>
-                    <c:forEach var="i" begin="1" end="${panier.key.stock}">
-                        <option value="${i}" <c:if test="${i.equals(panier.value)}"> selected </c:if>>${i}</option>
-                    </c:forEach>
-                </select>
-                <!--<button type="submit">Modifier</button>-->
-                </form:form></td>
-            </tr>
-        </c:forEach>
-    </table>
-<img src="test.png">
+    <main class="mdl-layout__content ">
+        <div class="page-content mdl-layout__container">
+            <table>
+                <c:forEach var ="panier" items="${panier_courant}">
+                    <tr>
+                        <td><c:out value="${panier.key.modele}"/></td>
+                        <td><c:out value="${panier.key.marque.nom}"/></td>
+                        <td><c:out value="${panier.key.annee}"/></td>
+                        <td><c:out value="${panier.key.stock}"/></td>
+                        <td><c:out value="${panier.key.motorisation}"/></td>
+                        <td><c:out value="${panier.key.prix}"/></td>
+                        <td><form:form id="formSoftware" method="get" action="/modifierpanier/${panier.key.id}/"><select onchange="toSubmit(this.value,${panier.key.id})">
+                            <option value="0">Supprimer</option>
+                            <c:forEach var="i" begin="1" end="${panier.key.stock}">
+                                <option value="${i}" <c:if test="${i.equals(panier.value)}"> selected </c:if>>${i}</option>
+                            </c:forEach>
+                        </select>
+                        </form:form></td>
+                    </tr>
+                </c:forEach>
+            </table>
+            <form:form method="get" action="/paiement">
+                <button type="submit"  class="mdl-button mdl-button--colored mdl-js-button">PAYER</button>
+            </form:form>
+        </div>
+    </main>
+</div>
+
+
+
 </body>
 </html>

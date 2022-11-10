@@ -24,7 +24,7 @@ public class UtilisateurService {
 
         Utilisateur utilisateur = new Utilisateur();
 
-        utilisateur.setPanier_courant(panierCourant);
+        utilisateur.setPanierCourant(panierCourant);
         utilisateur.setNom(utilisateurInscriptionDto.getNom());
         utilisateur.setLogin(utilisateurInscriptionDto.getUsername());
         utilisateur.setPassword(utilisateurInscriptionDto.getPassword());

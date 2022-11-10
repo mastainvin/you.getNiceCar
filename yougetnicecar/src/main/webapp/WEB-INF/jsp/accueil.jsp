@@ -9,7 +9,7 @@
     <title>Accueil</title>
 </head>
 
-<body style="font-family: 'Montserrat';">
+<body style="font-family: 'Montserrat',serif;">
 
 <div class="mdl-layout mdl-js-layout">
     <jsp:include page="/WEB-INF/jsp/navbar.jsp" />
