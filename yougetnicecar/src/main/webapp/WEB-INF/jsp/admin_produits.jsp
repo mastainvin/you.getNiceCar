@@ -40,7 +40,7 @@
                         <tbody>
                         <c:forEach items="${produits}" var="produit" varStatus="pStatus">
                             <tr>
-                                    <%--@elvariable id="produit" type="com.jee.yougetnicecar.models.Produit"--%>
+                                    <%--@elvariable id="produit" type="com.jee.yougetnicecar.models.ProduitDto"--%>
                                 <form:form action="/produit/modifier/${produit.id}" method="post" modelAttribute="produit" id="${produit.id}">
                                     <td><form:input class="mdl-textfield__input" type="text" path="modele" value="${produit.modele}"/></td>
                                     <td><form:input class="mdl-textfield__input" type="number" path="prix" value="${produit.prix}"/></td>
@@ -84,12 +84,12 @@
                         <div class="mdl-textfield mdl-js-textfield">
                             <form:label path="prix" class="mdl-textfield__label" >Prix</form:label> <form:input class="mdl-textfield__input" type="number" path="prix"/>
                         </div>
+
                         <div class="mdl-textfield mdl-js-textfield">
                             <form:label path="annee" class="mdl-textfield__label">Année</form:label> <form:input  class="mdl-textfield__input" type="number" path="annee"/>
                         </div>
                         <div class="mdl-textfield mdl-js-textfield">
                             <form:label path="imagePath" class="mdl-textfield__label">Image</form:label> <form:input  class="mdl-textfield__input" type="text" path="imagePath"/>
-
                         </div>
                         <div class="mdl-textfield mdl-js-textfield">
                             <form:label path="stock" class="mdl-textfield__label">Stock</form:label> <form:input  class="mdl-textfield__input" type="number" path="stock"/>

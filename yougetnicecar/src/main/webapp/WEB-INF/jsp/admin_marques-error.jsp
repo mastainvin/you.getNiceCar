@@ -122,7 +122,7 @@
 
             <h2>Marques</h2>
             <hr/>
-            <div>
+            <div style="color: red;">
                 ${erreur}
             </div>
             <div class="mdl-grid center-items">
@@ -171,12 +171,5 @@
         </div>
     </main>
 </div>
-
-
-
-
-
-
-
 </body>
 </html>

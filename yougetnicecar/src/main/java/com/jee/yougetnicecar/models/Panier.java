@@ -25,8 +25,8 @@ public class Panier {
 
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "panier_produits",
-            joinColumns = @JoinColumn(name = "panier_id"),
-            inverseJoinColumns = @JoinColumn(name = "produits_id"))
+            joinColumns = @JoinColumn(name = "panier_id", referencedColumnName = "id"),
+            inverseJoinColumns = @JoinColumn(name = "produits_id", referencedColumnName = "id"))
     private List<Produit> produits = new ArrayList<>();
 
     public List<Produit> getProduits() {

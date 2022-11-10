@@ -19,7 +19,7 @@ public class Produit {
     @Column(name = "annee")
     private Integer annee;
 
-    @Column(name = "image_path")
+    @Column(name = "image_path", length = 2000)
     private String imagePath;
 
     @Column(name = "stock")
