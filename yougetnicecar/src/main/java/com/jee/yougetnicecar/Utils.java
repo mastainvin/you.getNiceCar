@@ -8,22 +8,23 @@ import org.springframework.ui.Model;
 
 public class Utils {
     public static void checkAdmin(Model model) {
-        if(!model.containsAttribute("utilisateur")) {
+        if (!model.containsAttribute("utilisateur")) {
             throw new NotAdminException();
         }
         Utilisateur utilisateur = (Utilisateur) model.getAttribute("utilisateur");
         assert utilisateur != null;
-        if(utilisateur.getRole() != Role.ADMIN) {
+        if (utilisateur.getRole() != Role.ADMIN) {
             throw new NotAdminException();
         }
     }
+
     public static void checkUser(Model model) {
-        if(!model.containsAttribute("utilisateur")) {
+        if (!model.containsAttribute("utilisateur")) {
             throw new NotUserException();
         }
         Utilisateur utilisateur = (Utilisateur) model.getAttribute("utilisateur");
         assert utilisateur != null;
-        if(utilisateur.getRole() != Role.USER) {
+        if (utilisateur.getRole() != Role.USER) {
             throw new NotUserException();
         }
     }

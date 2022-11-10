@@ -29,18 +29,18 @@ public class LogiqueMetierService {
     @Autowired
     private PanierRepository panierRepository;
 
-    public void payer(Utilisateur utilisateur, String numeroCarte, String dateExpiration, String cryptogramme, String nom, String prenom,Integer montant) throws NoMoneyException, CarteBleueNotFoundException {
+    public void payer(Utilisateur utilisateur, String numeroCarte, String dateExpiration, String cryptogramme, String nom, String prenom, Integer montant) throws NoMoneyException, CarteBleueNotFoundException {
         Optional<CarteBleue> carteBleue = carteBleueRepository.findByNumeroAndDateExpirationAndCryptogrammeAndNomAndPrenom(numeroCarte, dateExpiration, cryptogramme, nom, prenom);
 
-        if(carteBleue.isPresent()){
-            if(carteBleue.get().getSolde() >= montant){
+        if (carteBleue.isPresent()) {
+            if (carteBleue.get().getSolde() >= montant) {
 
                 // Modifie le solde de la carte bleue
                 carteBleue.get().setSolde(carteBleue.get().getSolde() - montant);
                 carteBleueRepository.save(carteBleue.get());
 
                 // Modifie le stock de chaque produit du panier
-                for(int i = 0; i < utilisateur.getPanierCourant().getProduits().size(); i++){
+                for (int i = 0; i < utilisateur.getPanierCourant().getProduits().size(); i++) {
                     utilisateur.getPanierCourant().getProduits().get(i).setStock(utilisateur.getPanierCourant().getProduits().get(i).getStock() - 1);
                     produitRepository.save(utilisateur.getPanierCourant().getProduits().get(i));
                 }
@@ -52,10 +52,10 @@ public class LogiqueMetierService {
                 // Modifie le panier courant de l'utilisateur
                 utilisateur.setPanierCourant(null); // TODO : Vérifier si ça marche (possibilité d'erreur pour reremplir le panier après)
                 utilisateurRepository.save(utilisateur);
-            }else{
+            } else {
                 throw new NoMoneyException("Pas assez d'argent sur la carte bleue");
             }
-        }else{
+        } else {
             throw new CarteBleueNotFoundException("Carte bleue non trouvée");
         }
     }

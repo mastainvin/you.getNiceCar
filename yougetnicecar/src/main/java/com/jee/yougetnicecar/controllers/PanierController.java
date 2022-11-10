@@ -26,7 +26,6 @@ public class PanierController {
     public String voirAnciennesCommandes(@ModelAttribute Utilisateur utilisateur) {
 
 
-
         return "panier";
     }
 

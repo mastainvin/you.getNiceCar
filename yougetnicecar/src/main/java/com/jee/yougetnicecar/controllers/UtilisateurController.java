@@ -42,22 +42,24 @@ public class UtilisateurController {
     @Autowired
     PanierRepository panierRepository;
 
-   @Autowired
-   ProduitRepository produitRepository;
+    @Autowired
+    ProduitRepository produitRepository;
 
 
     @Autowired
     UtilisateurService utilisateurService;
+
     protected Utilisateur verifyUtilisateur(Long userID) throws ResourceNotFoundException {
         Optional<Utilisateur> utilisateur = utilisateurRepository.findById(userID);
-        if(utilisateur.isEmpty()){
+        if (utilisateur.isEmpty()) {
             throw new ResourceNotFoundException("Utilisateur with id " + userID + " not found.");
         }
         return utilisateur.get();
     }
+
     @GetMapping("/connexion")
     public String connexion(Model model) {
-        if(!model.containsAttribute("utilisateur")) {
+        if (!model.containsAttribute("utilisateur")) {
             model.addAttribute(new Utilisateur());
         }
         model.addAttribute("utilisateurConnexionDto", new UtilisateurConnexionDto());
@@ -68,7 +70,7 @@ public class UtilisateurController {
     public RedirectView connexion(@ModelAttribute("utilisateurConnexionDto") UtilisateurConnexionDto utilisateurConnexionDto, Model model, RedirectAttributes attributes) {
         Optional<Utilisateur> utilisateurOptional = utilisateurRepository.findByLoginAndPassword(utilisateurConnexionDto.getUsername(), utilisateurConnexionDto.getPassword());
 
-        if(utilisateurOptional.isPresent()) {
+        if (utilisateurOptional.isPresent()) {
             Utilisateur utilisateur = utilisateurOptional.get();
             attributes.addFlashAttribute("utilisateur", utilisateur);
         } else {
@@ -79,10 +81,9 @@ public class UtilisateurController {
     }
 
 
-
     @GetMapping("/inscription")
     public String inscription(Model model) {
-        if(!model.containsAttribute("utilisateur")) {
+        if (!model.containsAttribute("utilisateur")) {
             model.addAttribute(new Utilisateur());
         }
         model.addAttribute("utilisateurInscriptionDto", new UtilisateurInscriptionDto());
@@ -91,16 +92,16 @@ public class UtilisateurController {
 
     @PostMapping("/inscription")
     public RedirectView inscription(@ModelAttribute("utilisateurInscriptionDto") UtilisateurInscriptionDto utilisateurInscriptionDto, RedirectAttributes attributes) {
-        if(Objects.equals(utilisateurInscriptionDto.getUsername(), "") || Objects.equals(utilisateurInscriptionDto.getNom(), "") || Objects.equals(utilisateurInscriptionDto.getPassword(), "") || Objects.equals(utilisateurInscriptionDto.getRepeatPassword(), "") || Objects.equals(utilisateurInscriptionDto.getPrenom(), "")) {
+        if (Objects.equals(utilisateurInscriptionDto.getUsername(), "") || Objects.equals(utilisateurInscriptionDto.getNom(), "") || Objects.equals(utilisateurInscriptionDto.getPassword(), "") || Objects.equals(utilisateurInscriptionDto.getRepeatPassword(), "") || Objects.equals(utilisateurInscriptionDto.getPrenom(), "")) {
             throw new InscriptionException("Veuillez remplir tous les champs", utilisateurInscriptionDto);
         }
 
         Optional<Utilisateur> nomUtiliseUtilisateur = utilisateurRepository.findByLogin(utilisateurInscriptionDto.getUsername());
 
-        if(nomUtiliseUtilisateur.isPresent()) {
-           throw new InscriptionException("Nom d'utilisateur déjà pris.", utilisateurInscriptionDto);
+        if (nomUtiliseUtilisateur.isPresent()) {
+            throw new InscriptionException("Nom d'utilisateur déjà pris.", utilisateurInscriptionDto);
         } else if (!utilisateurInscriptionDto.getPassword().equals(utilisateurInscriptionDto.getRepeatPassword())) {
-           throw new InscriptionException("Les mots de passes ne correspondent pas", utilisateurInscriptionDto);
+            throw new InscriptionException("Les mots de passes ne correspondent pas", utilisateurInscriptionDto);
         } else {
             Utilisateur utilisateur = utilisateurService.creerUtilisateur(utilisateurInscriptionDto);
             attributes.addFlashAttribute("utilisateur", utilisateur);
@@ -110,17 +111,16 @@ public class UtilisateurController {
     }
 
 
-
     @GetMapping("/deconnexion")
     public RedirectView deconnexion(Model model, RedirectAttributes attributes) {
-        if(!model.containsAttribute("utilisateur")) {
+        if (!model.containsAttribute("utilisateur")) {
             model.addAttribute(new Utilisateur());
         }
 
         Utilisateur utilisateur = (Utilisateur) model.getAttribute("utilisateur");
 
         assert utilisateur != null;
-        if(utilisateur.getId() != null) {
+        if (utilisateur.getId() != null) {
             utilisateur.setId(null);
             utilisateur.setPanierCourant(null);
             utilisateur.setRole(null);
@@ -138,13 +138,12 @@ public class UtilisateurController {
 
         Optional<Produit> produit = produitRepository.findById(produitId);
 
-        Utilisateur utilisateur = (Utilisateur)model.getAttribute("utilisateur");
+        Utilisateur utilisateur = (Utilisateur) model.getAttribute("utilisateur");
 
         List<Produit> produitList;
 
         assert utilisateur != null;
-        if(utilisateur.getPanierCourant() == null)
-       {
+        if (utilisateur.getPanierCourant() == null) {
             DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd");
             LocalDateTime now = LocalDateTime.now();
 
@@ -157,45 +156,43 @@ public class UtilisateurController {
             panier.setProduits(produitList);
             panier.setEtatPanier(EtatPanier.EN_COURS);
 
-       }
-       else {
+        } else {
             produit.ifPresent(value -> utilisateur.getPanierCourant().getProduits().add(value));
-       }
+        }
         utilisateurRepository.save(utilisateur);
         return new RedirectView("/produit/boutique", true);
     }
 
     @GetMapping("/modifierpanier/{produitId}/{quantite}")
-    public RedirectView modifPanier(Model model, @PathVariable int quantite,@PathVariable Long produitId) {
+    public RedirectView modifPanier(Model model, @PathVariable int quantite, @PathVariable Long produitId) {
         checkUser(model);
-        if(quantite > 0){
+        if (quantite > 0) {
 
-            Utilisateur utilisateur = (Utilisateur)model.getAttribute("utilisateur");
+            Utilisateur utilisateur = (Utilisateur) model.getAttribute("utilisateur");
             assert utilisateur != null;
 
             int count = 0;
             for (int i = 0; i < utilisateur.getPanierCourant().getProduits().size(); i++) {
-                if(Objects.equals(utilisateur.getPanierCourant().getProduits().get(i).getId(), produitId)){
+                if (Objects.equals(utilisateur.getPanierCourant().getProduits().get(i).getId(), produitId)) {
                     count++;
                 }
             }
 
-            if(count > quantite) {
+            if (count > quantite) {
                 List<Produit> allSameProduits = utilisateur.getPanierCourant().getProduits().stream().filter(produit -> Objects.equals(produit.getId(), produitId)).collect(Collectors.toList());
                 for (int i = 0; i < count - quantite; i++) {
                     utilisateur.getPanierCourant().getProduits().remove(allSameProduits.get(i));
                 }
 
-            }
-            else if(count < quantite){
-                for(int i = 0; i < quantite - count; i++) {
+            } else if (count < quantite) {
+                for (int i = 0; i < quantite - count; i++) {
                     Optional<Produit> produit = produitRepository.findById(produitId);
                     produit.ifPresent(value -> utilisateur.getPanierCourant().getProduits().add(value));
                 }
             }
             utilisateurRepository.save(utilisateur);
         } else if (quantite == 0) {
-            Utilisateur utilisateur = (Utilisateur)model.getAttribute("utilisateur");
+            Utilisateur utilisateur = (Utilisateur) model.getAttribute("utilisateur");
             assert utilisateur != null;
             utilisateur.getPanierCourant().getProduits().removeIf(produit -> Objects.equals(produit.getId(), produitId));
             utilisateurRepository.save(utilisateur);
@@ -206,20 +203,20 @@ public class UtilisateurController {
     @GetMapping("/panier")
     public String voirPanier(Model model) {
         checkUser(model);
-        Utilisateur utilisateur = (Utilisateur)model.getAttribute("utilisateur");
+        Utilisateur utilisateur = (Utilisateur) model.getAttribute("utilisateur");
 
         HashMap<Produit, Integer> produitQuantite = new HashMap<>();
         assert utilisateur != null;
         for (Produit produit : utilisateur.getPanierCourant().getProduits()) {
             boolean found = false;
-            for(Produit produit1: produitQuantite.keySet()){
-                if(Objects.equals(produit.getId(), produit1.getId())){
+            for (Produit produit1 : produitQuantite.keySet()) {
+                if (Objects.equals(produit.getId(), produit1.getId())) {
                     produitQuantite.put(produit1, produitQuantite.get(produit1) + 1);
                     found = true;
                     break;
                 }
             }
-            if(!found){
+            if (!found) {
                 produitQuantite.put(produit, 1);
             }
         }
@@ -241,19 +238,18 @@ public class UtilisateurController {
 
     @PutMapping("/update/{userId}")
     public void modifierUtilisateur(@ModelAttribute Utilisateur newUtilisateur, @PathVariable Long userId, Model model) {
-        if(!model.containsAttribute("utilisateur")) {
+        if (!model.containsAttribute("utilisateur")) {
             model.addAttribute(new Utilisateur());
         }
     }
 
     @GetMapping("/all")
     public String voirListeUtilisateurs(Model model) {
-        if(!model.containsAttribute("utilisateur")) {
+        if (!model.containsAttribute("utilisateur")) {
             model.addAttribute(new Utilisateur());
         }
         return null;
     }
-
 
 
     // Exceptions
@@ -283,5 +279,7 @@ public class UtilisateurController {
     }
 
     @ExceptionHandler(NotUserException.class)
-    public RedirectView notConnectedException(NotUserException e) { return new RedirectView("/", true); }
+    public RedirectView notConnectedException(NotUserException e) {
+        return new RedirectView("/", true);
+    }
 }

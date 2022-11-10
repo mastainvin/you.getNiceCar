@@ -9,13 +9,13 @@ import org.springframework.boot.web.servlet.support.SpringBootServletInitializer
 public class YougetnicecarApplication extends SpringBootServletInitializer {
 
 
-	@Override
-	protected SpringApplicationBuilder configure(SpringApplicationBuilder builder) {
-		return builder.sources(YougetnicecarApplication.class);
-	}
+    @Override
+    protected SpringApplicationBuilder configure(SpringApplicationBuilder builder) {
+        return builder.sources(YougetnicecarApplication.class);
+    }
 
-	public static void main(String[] args) {
-		SpringApplication.run(YougetnicecarApplication.class, args);
-	}
+    public static void main(String[] args) {
+        SpringApplication.run(YougetnicecarApplication.class, args);
+    }
 
 }

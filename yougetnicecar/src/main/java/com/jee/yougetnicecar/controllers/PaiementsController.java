@@ -19,7 +19,7 @@ public class PaiementsController {
         Utilisateur utilisateur = (Utilisateur) model.getAttribute("utilisateur");
         CarteBleueDto carteBleueDto = (CarteBleueDto) model.getAttribute("carteBleueDto");
 
-        if(carteBleueDto != null && utilisateur != null) {
+        if (carteBleueDto != null && utilisateur != null) {
             System.out.println(carteBleueDto.getNom());
 
         }

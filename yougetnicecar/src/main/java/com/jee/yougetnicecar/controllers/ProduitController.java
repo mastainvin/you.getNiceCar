@@ -41,7 +41,7 @@ public class ProduitController {
 
     protected Produit verifyProduit(Long produitId) throws ResourceNotFoundException {
         Optional<Produit> produit = produitRepository.findById(produitId);
-        if(produit.isEmpty()){
+        if (produit.isEmpty()) {
             throw new ResourceNotFoundException("Produit with id " + produitId + " not found.");
         }
         return produit.get();
@@ -51,11 +51,11 @@ public class ProduitController {
 
     @GetMapping("/boutique")
     public String voirLaBoutique(Model model) {
-    	List<Produit> produits = produitRepository.findAll();
-    	List<Marque> marques= marqueRepository.findAll();
+        List<Produit> produits = produitRepository.findAll();
+        List<Marque> marques = marqueRepository.findAll();
         model.addAttribute("produits", produits);
         model.addAttribute("marques", marques);
-    	return "boutique";
+        return "boutique";
     }
 
     // Utilisateur Admin
@@ -81,7 +81,7 @@ public class ProduitController {
     public RedirectView ajouterProduit(Model model, @ModelAttribute("produitDto") ProduitDto produitDto) {
 
 
-        if(produitDto.getModele().isEmpty() || Objects.equals(produitDto.getModele(), "") || produitDto.getMotorisation() == null || produitDto.getPrix() == null || produitDto.getMarque() == null || produitDto.getStock() == null || produitDto.getStock() < 0 || produitDto.getPrix() < 0 || Objects.equals(produitDto.getImagePath(), "")){
+        if (produitDto.getModele().isEmpty() || Objects.equals(produitDto.getModele(), "") || produitDto.getMotorisation() == null || produitDto.getPrix() == null || produitDto.getMarque() == null || produitDto.getStock() == null || produitDto.getStock() < 0 || produitDto.getPrix() < 0 || Objects.equals(produitDto.getImagePath(), "")) {
             throw new ProduitAdminException("Tous les champs doivent être remplis.");
         }
 
@@ -102,7 +102,6 @@ public class ProduitController {
     }
 
 
-
     @PostMapping("/supprimer/{produitId}")
     public RedirectView supprimer(Model model, @PathVariable Long produitId) {
         checkAdmin(model);
@@ -121,7 +120,7 @@ public class ProduitController {
     public RedirectView modifier(Model model, @PathVariable Long produitId, @ModelAttribute("produit") Produit newProduit) {
         checkAdmin(model);
 
-        if(newProduit.getModele().isEmpty() || newProduit.getModele() == null || newProduit.getMotorisation() == null || newProduit.getPrix() == null || newProduit.getMarque() == null || newProduit.getStock() == null || newProduit.getStock() < 0 || newProduit.getPrix() < 0 /**|| newProduit.getImagePath() == null**/){
+        if (newProduit.getModele().isEmpty() || newProduit.getModele() == null || newProduit.getMotorisation() == null || newProduit.getPrix() == null || newProduit.getMarque() == null || newProduit.getStock() == null || newProduit.getStock() < 0 || newProduit.getPrix() < 0 /**|| newProduit.getImagePath() == null**/) {
             throw new ProduitAdminException("Tous les champs doivent être remplis.");
 
         }
@@ -138,7 +137,6 @@ public class ProduitController {
 
         return new RedirectView("/produit/admin", true);
     }
-
 
 
     // Exceptions

@@ -2,7 +2,7 @@ package com.jee.yougetnicecar.exceptions;
 
 import com.jee.yougetnicecar.dtos.UtilisateurInscriptionDto;
 
-public class InscriptionException extends RuntimeException{
+public class InscriptionException extends RuntimeException {
     private final UtilisateurInscriptionDto utilisateurInscriptionDto;
 
     public InscriptionException(String msg, UtilisateurInscriptionDto utilisateurInscriptionDto) {

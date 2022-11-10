@@ -14,9 +14,9 @@ public class AccueilController {
 
     @GetMapping("/")
     public String accueil(Model model) {
-       if(!model.containsAttribute("utilisateur")) {
-           model.addAttribute(new Utilisateur());
-       }
+        if (!model.containsAttribute("utilisateur")) {
+            model.addAttribute(new Utilisateur());
+        }
         return "accueil";
     }
 

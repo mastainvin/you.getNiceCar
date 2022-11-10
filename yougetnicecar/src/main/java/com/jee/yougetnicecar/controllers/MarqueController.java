@@ -35,7 +35,7 @@ public class MarqueController {
 
     protected Marque verifyMarque(Long marqueId) throws ResourceNotFoundException {
         Optional<Marque> marque = marqueRepository.findById(marqueId);
-        if(marque.isEmpty()){
+        if (marque.isEmpty()) {
             throw new ResourceNotFoundException("Marque with id " + marqueId + " not found.");
         }
         return marque.get();
@@ -45,7 +45,7 @@ public class MarqueController {
     public RedirectView ajouterMarque(Model model, @ModelAttribute("marqueDto") MarqueDto marqueDto) {
         checkAdmin(model);
 
-        if(marqueDto.getNom().isEmpty()){
+        if (marqueDto.getNom().isEmpty()) {
             throw new MarqueAdminException("Le nom de la marque ne peut pas être vide.");
         }
         Marque marque = new Marque();
@@ -61,7 +61,7 @@ public class MarqueController {
     public RedirectView modifierMarque(Model model, @ModelAttribute MarqueDto marqueDto, @PathVariable Long marqueId) {
         checkAdmin(model);
 
-        if(Objects.equals(marqueDto.getNom(), "")) {
+        if (Objects.equals(marqueDto.getNom(), "")) {
             throw new MarqueAdminException("Le nom de la marque ne peut pas être vide.");
         }
         Marque marque = verifyMarque(marqueId);
