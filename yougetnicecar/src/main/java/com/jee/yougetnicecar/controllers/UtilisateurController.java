@@ -10,10 +10,7 @@ import com.jee.yougetnicecar.dtos.CommandeDto;
 import com.jee.yougetnicecar.dtos.UtilisateurConnexionDto;
 import com.jee.yougetnicecar.dtos.UtilisateurInscriptionDto;
 import com.jee.yougetnicecar.exceptions.*;
-import com.jee.yougetnicecar.models.EtatPanier;
-import com.jee.yougetnicecar.models.Panier;
-import com.jee.yougetnicecar.models.Produit;
-import com.jee.yougetnicecar.models.Utilisateur;
+import com.jee.yougetnicecar.models.*;
 import com.jee.yougetnicecar.repositories.PanierRepository;
 import com.jee.yougetnicecar.repositories.ProduitRepository;
 import com.jee.yougetnicecar.repositories.UtilisateurRepository;
@@ -29,6 +26,7 @@ import org.springframework.web.servlet.view.RedirectView;
 import java.util.*;
 import java.util.stream.Collectors;
 
+import static com.jee.yougetnicecar.Utils.checkAdmin;
 import static com.jee.yougetnicecar.Utils.checkUser;
 
 @Controller
@@ -290,19 +288,35 @@ public class UtilisateurController {
 
     // Admin
 
-    @PutMapping("/update/{userId}")
-    public void modifierUtilisateur(@ModelAttribute Utilisateur newUtilisateur, @PathVariable Long userId, Model model) {
-        if (!model.containsAttribute("utilisateur")) {
-            model.addAttribute(new Utilisateur());
+    @PostMapping("/admin/users/update/{userId}")
+    public RedirectView modifierUtilisateur(@ModelAttribute("bdd_utilisateur") Utilisateur newUtilisateur, @PathVariable Long userId, Model model) {
+        checkAdmin(model);
+
+
+        Optional<Utilisateur> utilisateurOptional = utilisateurRepository.findById(userId);
+
+        if(utilisateurOptional.isPresent()) {
+            Utilisateur utilisateur = utilisateurOptional.get();
+            utilisateur.setNom(newUtilisateur.getNom());
+            utilisateur.setPrenom(newUtilisateur.getPrenom());
+            utilisateur.setLogin(newUtilisateur.getLogin());
+            utilisateur.setRole(newUtilisateur.getRole());
+            utilisateurRepository.save(utilisateur);
         }
+
+        return new RedirectView("/admin/users", true);
     }
 
-    @GetMapping("/all")
+    @GetMapping("/admin/users")
     public String voirListeUtilisateurs(Model model) {
-        if (!model.containsAttribute("utilisateur")) {
-            model.addAttribute(new Utilisateur());
-        }
-        return null;
+        checkAdmin(model);
+
+        List<Utilisateur> utilisateurs = utilisateurRepository.findAll();
+        model.addAttribute("utilisateurs", utilisateurs);
+        model.addAttribute("bdd_utilisateur", new Utilisateur());
+        model.addAttribute("roles", Role.values());
+
+        return "admin_utilisateurs";
     }
 
 
