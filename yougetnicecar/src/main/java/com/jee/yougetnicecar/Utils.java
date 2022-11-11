@@ -22,10 +22,5 @@ public class Utils {
         if (!model.containsAttribute("utilisateur")) {
             throw new NotUserException();
         }
-        Utilisateur utilisateur = (Utilisateur) model.getAttribute("utilisateur");
-        assert utilisateur != null;
-        if (utilisateur.getRole() != Role.USER) {
-            throw new NotUserException();
-        }
     }
 }

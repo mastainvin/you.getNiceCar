@@ -34,11 +34,13 @@
                                     </c:if>
                                 </div>
                                 <div style="position: absolute; bottom: 0; left: 0; right: 0; margin-left: auto; margin-right: auto; text-align: center;">
-                                    <form:form method="get" action="/ajouter/${produit.id}">
-                                        <button style="color: white; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -85%); border-radius: 15px;" name="${produit.modele}" value="${produit.id}"
-                                                class="mdl-button mdl-js-button">AJOUTER AU PANIER
-                                        </button>
-                                    </form:form>
+                                    <c:if test="${produit.stock >= 1}">
+                                        <form:form method="get" action="/ajouter/${produit.id}">
+                                            <button style="color: white; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -85%); border-radius: 15px;" name="${produit.modele}" value="${produit.id}"
+                                                    class="mdl-button mdl-js-button">AJOUTER AU PANIER
+                                            </button>
+                                        </form:form>
+                                    </c:if>
                                 </div>
                                 <div style="position: absolute; bottom: 10px; right: 15px; width: 30%; text-align: right;">
                                     <span>Prix : ${produit.prix}€</span>

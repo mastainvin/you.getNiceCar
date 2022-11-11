@@ -27,7 +27,7 @@ public class Utilisateur {
     @Column(name = "role")
     private Role role;
 
-    @OneToOne(cascade = {CascadeType.PERSIST})
+    @OneToOne
     @JoinColumn(name = "panier_courant_id")
     private Panier panier_courant;
 

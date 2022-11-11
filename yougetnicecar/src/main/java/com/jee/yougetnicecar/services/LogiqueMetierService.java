@@ -1,10 +1,9 @@
 package com.jee.yougetnicecar.services;
 
+import com.jee.yougetnicecar.dtos.CarteBleueDto;
 import com.jee.yougetnicecar.exceptions.CarteBleueNotFoundException;
 import com.jee.yougetnicecar.exceptions.NoMoneyException;
-import com.jee.yougetnicecar.models.CarteBleue;
-import com.jee.yougetnicecar.models.EtatPanier;
-import com.jee.yougetnicecar.models.Utilisateur;
+import com.jee.yougetnicecar.models.*;
 import com.jee.yougetnicecar.repositories.CarteBleueRepository;
 import com.jee.yougetnicecar.repositories.PanierRepository;
 import com.jee.yougetnicecar.repositories.ProduitRepository;
@@ -12,6 +11,11 @@ import com.jee.yougetnicecar.repositories.UtilisateurRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.HashMap;
+import java.util.Objects;
 import java.util.Optional;
 
 @Service
@@ -29,9 +33,10 @@ public class LogiqueMetierService {
     @Autowired
     private PanierRepository panierRepository;
 
-    public void payer(Utilisateur utilisateur, String numeroCarte, String dateExpiration, String cryptogramme, String nom, String prenom, Integer montant) throws NoMoneyException, CarteBleueNotFoundException {
-        Optional<CarteBleue> carteBleue = carteBleueRepository.findByNumeroAndDateExpirationAndCryptogrammeAndNomAndPrenom(numeroCarte, dateExpiration, cryptogramme, nom, prenom);
+    public void payer(CarteBleueDto carteBleueDto, Utilisateur utilisateur) {
+        Optional<CarteBleue> carteBleue = carteBleueRepository.findByNumeroAndDateExpirationAndCryptogrammeAndNomAndPrenom(carteBleueDto.getNumero(), carteBleueDto.getDateExpiration(), carteBleueDto.getCryptogramme(), carteBleueDto.getNom(), carteBleueDto.getPrenom());
 
+        Integer montant = utilisateur.getPanierCourant().getProduits().stream().mapToInt(Produit::getPrix).sum();
         if (carteBleue.isPresent()) {
             if (carteBleue.get().getSolde() >= montant) {
 
@@ -40,18 +45,44 @@ public class LogiqueMetierService {
                 carteBleueRepository.save(carteBleue.get());
 
                 // Modifie le stock de chaque produit du panier
-                for (int i = 0; i < utilisateur.getPanierCourant().getProduits().size(); i++) {
-                    utilisateur.getPanierCourant().getProduits().get(i).setStock(utilisateur.getPanierCourant().getProduits().get(i).getStock() - 1);
-                    produitRepository.save(utilisateur.getPanierCourant().getProduits().get(i));
+                HashMap<Produit, Integer> produitQuantite = new HashMap<>();
+
+                if(!(utilisateur.getPanierCourant() == null)){
+                    for (Produit produit : utilisateur.getPanierCourant().getProduits()) {
+                        boolean found = false;
+                        for (Produit produit1 : produitQuantite.keySet()) {
+                            if (Objects.equals(produit.getId(), produit1.getId())) {
+                                produitQuantite.put(produit1, produitQuantite.get(produit1) + 1);
+                                found = true;
+                                break;
+                            }
+                        }
+                        if (!found) {
+                            produitQuantite.put(produit, 1);
+                        }
+                    }
                 }
 
-                // Detach panier
-                utilisateur.getPanierCourant().setEtatPanier(EtatPanier.PAYE);
-                panierRepository.save(utilisateur.getPanierCourant());
+                for(Produit produit : produitQuantite.keySet()){
+                    produit.setStock(produit.getStock() - produitQuantite.get(produit));
+                    produitRepository.save(produit);
+                }
+
+
+                Panier panier = utilisateur.getPanierCourant();
+
 
                 // Modifie le panier courant de l'utilisateur
                 utilisateur.setPanierCourant(null); // TODO : Vérifier si ça marche (possibilité d'erreur pour reremplir le panier après)
                 utilisateurRepository.save(utilisateur);
+
+                DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+                LocalDateTime now = LocalDateTime.now();
+                panier.setDate(LocalDate.parse(dtf.format(now)));
+                panier.setEtatPanier(EtatPanier.PAYE);
+                panier.setUtilisateur(utilisateur);
+                panierRepository.save(panier);
+
             } else {
                 throw new NoMoneyException("Pas assez d'argent sur la carte bleue");
             }

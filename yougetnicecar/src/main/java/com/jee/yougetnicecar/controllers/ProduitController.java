@@ -1,6 +1,5 @@
 package com.jee.yougetnicecar.controllers;
 
-import com.jee.yougetnicecar.FileUploadUtil;
 import com.jee.yougetnicecar.dtos.MarqueDto;
 import com.jee.yougetnicecar.dtos.ProduitDto;
 import com.jee.yougetnicecar.exceptions.ProduitAdminException;
@@ -11,13 +10,10 @@ import com.jee.yougetnicecar.repositories.ProduitRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
 
-import java.io.IOException;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
@@ -51,6 +47,7 @@ public class ProduitController {
 
     @GetMapping("/boutique")
     public String voirLaBoutique(Model model) {
+
         List<Produit> produits = produitRepository.findAll();
         List<Marque> marques = marqueRepository.findAll();
         model.addAttribute("produits", produits);
@@ -79,7 +76,7 @@ public class ProduitController {
 
     @PostMapping("/ajouter")
     public RedirectView ajouterProduit(Model model, @ModelAttribute("produitDto") ProduitDto produitDto) {
-
+        checkAdmin(model);
 
         if (produitDto.getModele().isEmpty() || Objects.equals(produitDto.getModele(), "") || produitDto.getMotorisation() == null || produitDto.getPrix() == null || produitDto.getMarque() == null || produitDto.getStock() == null || produitDto.getStock() < 0 || produitDto.getPrix() < 0 || Objects.equals(produitDto.getImagePath(), "")) {
             throw new ProduitAdminException("Tous les champs doivent être remplis.");
