@@ -34,7 +34,8 @@
                                 <td><c:out value="${panier.key.stock}"/></td>
                                 <td><c:out value="${panier.key.motorisation}"/></td>
                                 <td><c:out value="${panier.key.prix}"/></td>
-                                <td><form:form id="formSoftware" method="get" action="/modifierpanier/${panier.key.id}/"><select
+                                <td><form:form id="formSoftware" method="get" action="/modifierpanier/${panier.key.id}/">
+                                    <select
                                         onchange="toSubmit(this.value,${panier.key.id})">
                                     <option value="0">Supprimer</option>
                                     <c:forEach var="i" begin="1" end="${panier.key.stock}">

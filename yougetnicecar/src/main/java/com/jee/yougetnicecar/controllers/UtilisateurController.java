@@ -6,6 +6,7 @@ import java.time.LocalDateTime;
 
 
 import com.jee.yougetnicecar.dtos.CarteBleueDto;
+import com.jee.yougetnicecar.dtos.CommandeDto;
 import com.jee.yougetnicecar.dtos.UtilisateurConnexionDto;
 import com.jee.yougetnicecar.dtos.UtilisateurInscriptionDto;
 import com.jee.yougetnicecar.exceptions.*;
@@ -247,6 +248,45 @@ public class UtilisateurController {
         return "panier";
     }
 
+
+    @GetMapping("/compte")
+    public String compte(Model model) {
+        checkUser(model);
+        Utilisateur utilisateur = (Utilisateur) model.getAttribute("utilisateur");
+
+        assert utilisateur != null;
+        List<Panier> anciensPaniers = panierRepository.findByUtilisateurAndEtatPanierOrderByDateDesc(utilisateur, EtatPanier.PAYE);
+        List<CommandeDto> commandeDtos = new ArrayList<>();
+
+        for(Panier panier : anciensPaniers){
+            CommandeDto commandeDto = new CommandeDto();
+            commandeDto.setPanierId(panier.getId());
+            HashMap<Produit, Integer> produitQuantite = new HashMap<>();
+            Integer total = 0;
+                for (Produit produit : panier.getProduits()) {
+                    total += produit.getPrix();
+                    boolean found = false;
+                    for (Produit produit1 : produitQuantite.keySet()) {
+                        if (Objects.equals(produit.getId(), produit1.getId())) {
+                            produitQuantite.put(produit1, produitQuantite.get(produit1) + 1);
+                            found = true;
+                            break;
+                        }
+                    }
+                    if (!found) {
+                        produitQuantite.put(produit, 1);
+                    }
+            }
+
+            commandeDto.setTotal(total);
+            commandeDto.setProduits(produitQuantite);
+            commandeDto.setDate(panier.getDate());
+            commandeDtos.add(commandeDto);
+        }
+
+        model.addAttribute("commandes", commandeDtos);
+        return "compte";
+    }
 
     // Admin
 
