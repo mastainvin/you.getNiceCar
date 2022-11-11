@@ -95,6 +95,7 @@ public class UtilisateurController {
             throw new InscriptionException("Veuillez remplir tous les champs", utilisateurInscriptionDto);
         }
 
+
         Optional<Utilisateur> nomUtiliseUtilisateur = utilisateurRepository.findByLogin(utilisateurInscriptionDto.getUsername());
 
         if (nomUtiliseUtilisateur.isPresent()) {
@@ -253,37 +254,37 @@ public class UtilisateurController {
         Utilisateur utilisateur = (Utilisateur) model.getAttribute("utilisateur");
 
         assert utilisateur != null;
-        List<Panier> anciensPaniers = panierRepository.findByUtilisateurAndEtatPanierOrderByDateDesc(utilisateur, EtatPanier.PAYE);
-        List<CommandeDto> commandeDtos = new ArrayList<>();
 
-        for(Panier panier : anciensPaniers){
-            CommandeDto commandeDto = new CommandeDto();
-            commandeDto.setPanierId(panier.getId());
-            HashMap<Produit, Integer> produitQuantite = new HashMap<>();
-            Integer total = 0;
-                for (Produit produit : panier.getProduits()) {
-                    total += produit.getPrix();
-                    boolean found = false;
-                    for (Produit produit1 : produitQuantite.keySet()) {
-                        if (Objects.equals(produit.getId(), produit1.getId())) {
-                            produitQuantite.put(produit1, produitQuantite.get(produit1) + 1);
-                            found = true;
-                            break;
-                        }
-                    }
-                    if (!found) {
-                        produitQuantite.put(produit, 1);
-                    }
-            }
+        model.addAttribute("commandes", utilisateurService.getCommandes(utilisateur));
+        return "compte";
+    }
 
-            commandeDto.setTotal(total);
-            commandeDto.setProduits(produitQuantite);
-            commandeDto.setDate(panier.getDate());
-            commandeDtos.add(commandeDto);
+    @PostMapping("/compte/modifier/{id}")
+    public RedirectView modifierCompte(Model model, @PathVariable Long id, @RequestParam String nom, @RequestParam String prenom, @RequestParam String login) {
+        checkUser(model);
+        Utilisateur utilisateur = (Utilisateur) model.getAttribute("utilisateur");
+        assert utilisateur != null;
+
+        if(!Objects.equals(utilisateur.getId(), id)){
+            return new RedirectView("/compte", true);
         }
 
-        model.addAttribute("commandes", commandeDtos);
-        return "compte";
+        if(!nom.equals("")){
+            if(utilisateurService.loginExiste(login) && !Objects.equals(utilisateur.getLogin(), login)){
+                throw new UpdateAccountException("Ce nom d'utilisateur est déjà utilisé", utilisateur);
+            }
+            utilisateur.setNom(nom);
+        }
+        if(!prenom.equals("")){
+            utilisateur.setPrenom(prenom);
+        }
+        if(!login.equals("")){
+            utilisateur.setLogin(login);
+        }
+
+        utilisateurRepository.save(utilisateur);
+
+        return new RedirectView("/compte", true);
     }
 
     // Admin
@@ -291,7 +292,6 @@ public class UtilisateurController {
     @PostMapping("/admin/users/update/{userId}")
     public RedirectView modifierUtilisateur(@ModelAttribute("bdd_utilisateur") Utilisateur newUtilisateur, @PathVariable Long userId, Model model) {
         checkAdmin(model);
-
 
         Optional<Utilisateur> utilisateurOptional = utilisateurRepository.findById(userId);
 
@@ -349,5 +349,15 @@ public class UtilisateurController {
     @ExceptionHandler(NotUserException.class)
     public RedirectView notConnectedException(NotUserException e) {
         return new RedirectView("/", true);
+    }
+
+    @ExceptionHandler(UpdateAccountException.class)
+    public ModelAndView updateAccountException(UpdateAccountException e) {
+        final ModelAndView modelAndView = new ModelAndView();
+        modelAndView.addObject("erreur", e.getMessage());
+        modelAndView.addObject("commandes", utilisateurService.getCommandes(e.getUtilisateur()));
+        modelAndView.addObject("utilisateur", e.getUtilisateur());
+        modelAndView.setViewName("compte-error");
+        return modelAndView;
     }
 }
