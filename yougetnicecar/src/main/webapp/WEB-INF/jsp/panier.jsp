@@ -45,11 +45,11 @@
                                 </div>
                             </div>
                             <div style="margin-top: 15px; background: rgb(60,60,60); height: 185px; border-radius: 15px; padding: 10px; font-size: large;">
-                                    <div><i style="color: white; text-indent: 25px; margin-top: 10px; vertical-align: bottom;" class="material-icons">local_shipping</i> Expédié en moins de 1 semaine</div>
-                                    <div><i style="color: white; text-indent: 25px; margin-top: 10px; vertical-align: bottom;" class="material-icons">redeem</i> Frais de port offerts à dès 1€</div>
-                                    <div><i style="color: white; text-indent: 25px; margin-top: 10px; vertical-align: bottom;" class="material-icons">lock</i> Paiement en toute sécurité</div>
-                                    <hr style="color: white; width: 80%; margin-left: 10%; margin-right: 10%;"/>
-                                    <div style="text-align: center;">Une question ? Contactez nous au 01.01.01.01.01</div>
+                                <div><i style="color: white; text-indent: 25px; margin-top: 10px; vertical-align: bottom;" class="material-icons">local_shipping</i> Expédié en moins de 1 semaine</div>
+                                <div><i style="color: white; text-indent: 25px; margin-top: 10px; vertical-align: bottom;" class="material-icons">redeem</i> Frais de port offerts à dès 1€</div>
+                                <div><i style="color: white; text-indent: 25px; margin-top: 10px; vertical-align: bottom;" class="material-icons">lock</i> Paiement en toute sécurité</div>
+                                <hr style="color: white; width: 80%; margin-left: 10%; margin-right: 10%;"/>
+                                <div style="text-align: center;">Une question ? Contactez nous au 01.01.01.01.01</div>
                             </div>
                         </div>
 
@@ -81,7 +81,6 @@
         </div>
     </main>
 </div>
-
 
 </body>
 </html>
