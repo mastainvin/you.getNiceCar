@@ -1,6 +1,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat">
 <html>
 <head>
@@ -42,8 +43,8 @@
                                         </form:form>
                                     </c:if>
                                 </div>
-                                <div style="position: absolute; bottom: 10px; right: 15px; width: 30%; text-align: right;">
-                                    <span>Prix : ${produit.prix}€</span>
+                                <div style="position: absolute; bottom: 10px; right: 15px; width: 50%; text-align: right;">
+                                    <span><fmt:setLocale value="fr_FR"/><fmt:formatNumber value="${produit.prix}" type="currency" currencySymbol="€"/></span>
                                 </div>
                             </div>
                         </div>
