@@ -1,3 +1,4 @@
+<jsp:useBean id="erreur" scope="request" type="java.lang.String"/>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
@@ -14,7 +15,9 @@
 
 <h2>Compte</h2>
 
-
+<div style="color: red;">
+    ${erreur}
+</div>
 <form action="/compte/modifier/${utilisateur.id}" method="post">
     <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
         <label for="login" class="mdl-textfield__label">Nom d'utilisateur </label>

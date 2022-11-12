@@ -1,8 +1,7 @@
 package com.jee.yougetnicecar.services;
 
 import com.jee.yougetnicecar.dtos.CarteBleueDto;
-import com.jee.yougetnicecar.exceptions.CarteBleueNotFoundException;
-import com.jee.yougetnicecar.exceptions.NoMoneyException;
+import com.jee.yougetnicecar.exceptions.PaiementException;
 import com.jee.yougetnicecar.models.*;
 import com.jee.yougetnicecar.repositories.CarteBleueRepository;
 import com.jee.yougetnicecar.repositories.PanierRepository;
@@ -84,10 +83,10 @@ public class LogiqueMetierService {
                 panierRepository.save(panier);
 
             } else {
-                throw new NoMoneyException("Pas assez d'argent sur la carte bleue");
+                throw new PaiementException("Pas assez d'argent sur la carte bleue", utilisateur, montant, carteBleueDto);
             }
         } else {
-            throw new CarteBleueNotFoundException("Carte bleue non trouvée");
+            throw new PaiementException("Carte bleue non trouvée", utilisateur, montant, carteBleueDto);
         }
     }
 }

@@ -6,13 +6,11 @@ import java.time.LocalDateTime;
 
 
 import com.jee.yougetnicecar.dtos.CarteBleueDto;
+import com.jee.yougetnicecar.dtos.CommandeDto;
 import com.jee.yougetnicecar.dtos.UtilisateurConnexionDto;
 import com.jee.yougetnicecar.dtos.UtilisateurInscriptionDto;
 import com.jee.yougetnicecar.exceptions.*;
-import com.jee.yougetnicecar.models.EtatPanier;
-import com.jee.yougetnicecar.models.Panier;
-import com.jee.yougetnicecar.models.Produit;
-import com.jee.yougetnicecar.models.Utilisateur;
+import com.jee.yougetnicecar.models.*;
 import com.jee.yougetnicecar.repositories.PanierRepository;
 import com.jee.yougetnicecar.repositories.ProduitRepository;
 import com.jee.yougetnicecar.repositories.UtilisateurRepository;
@@ -28,6 +26,7 @@ import org.springframework.web.servlet.view.RedirectView;
 import java.util.*;
 import java.util.stream.Collectors;
 
+import static com.jee.yougetnicecar.Utils.checkAdmin;
 import static com.jee.yougetnicecar.Utils.checkUser;
 
 @Controller
@@ -95,6 +94,7 @@ public class UtilisateurController {
         if (Objects.equals(utilisateurInscriptionDto.getUsername(), "") || Objects.equals(utilisateurInscriptionDto.getNom(), "") || Objects.equals(utilisateurInscriptionDto.getPassword(), "") || Objects.equals(utilisateurInscriptionDto.getRepeatPassword(), "") || Objects.equals(utilisateurInscriptionDto.getPrenom(), "")) {
             throw new InscriptionException("Veuillez remplir tous les champs", utilisateurInscriptionDto);
         }
+
 
         Optional<Utilisateur> nomUtiliseUtilisateur = utilisateurRepository.findByLogin(utilisateurInscriptionDto.getUsername());
 
@@ -248,21 +248,75 @@ public class UtilisateurController {
     }
 
 
-    // Admin
+    @GetMapping("/compte")
+    public String compte(Model model) {
+        checkUser(model);
+        Utilisateur utilisateur = (Utilisateur) model.getAttribute("utilisateur");
 
-    @PutMapping("/update/{userId}")
-    public void modifierUtilisateur(@ModelAttribute Utilisateur newUtilisateur, @PathVariable Long userId, Model model) {
-        if (!model.containsAttribute("utilisateur")) {
-            model.addAttribute(new Utilisateur());
-        }
+        assert utilisateur != null;
+
+        model.addAttribute("commandes", utilisateurService.getCommandes(utilisateur));
+        return "compte";
     }
 
-    @GetMapping("/all")
-    public String voirListeUtilisateurs(Model model) {
-        if (!model.containsAttribute("utilisateur")) {
-            model.addAttribute(new Utilisateur());
+    @PostMapping("/compte/modifier/{id}")
+    public RedirectView modifierCompte(Model model, @PathVariable Long id, @RequestParam String nom, @RequestParam String prenom, @RequestParam String login) {
+        checkUser(model);
+        Utilisateur utilisateur = (Utilisateur) model.getAttribute("utilisateur");
+        assert utilisateur != null;
+
+        if(!Objects.equals(utilisateur.getId(), id)){
+            return new RedirectView("/compte", true);
         }
-        return null;
+
+        if(!nom.equals("")){
+            if(utilisateurService.loginExiste(login) && !Objects.equals(utilisateur.getLogin(), login)){
+                throw new UpdateAccountException("Ce nom d'utilisateur est déjà utilisé", utilisateur);
+            }
+            utilisateur.setNom(nom);
+        }
+        if(!prenom.equals("")){
+            utilisateur.setPrenom(prenom);
+        }
+        if(!login.equals("")){
+            utilisateur.setLogin(login);
+        }
+
+        utilisateurRepository.save(utilisateur);
+
+        return new RedirectView("/compte", true);
+    }
+
+    // Admin
+
+    @PostMapping("/admin/users/update/{userId}")
+    public RedirectView modifierUtilisateur(@ModelAttribute("bdd_utilisateur") Utilisateur newUtilisateur, @PathVariable Long userId, Model model) {
+        checkAdmin(model);
+
+        Optional<Utilisateur> utilisateurOptional = utilisateurRepository.findById(userId);
+
+        if(utilisateurOptional.isPresent()) {
+            Utilisateur utilisateur = utilisateurOptional.get();
+            utilisateur.setNom(newUtilisateur.getNom());
+            utilisateur.setPrenom(newUtilisateur.getPrenom());
+            utilisateur.setLogin(newUtilisateur.getLogin());
+            utilisateur.setRole(newUtilisateur.getRole());
+            utilisateurRepository.save(utilisateur);
+        }
+
+        return new RedirectView("/admin/users", true);
+    }
+
+    @GetMapping("/admin/users")
+    public String voirListeUtilisateurs(Model model) {
+        checkAdmin(model);
+
+        List<Utilisateur> utilisateurs = utilisateurRepository.findAll();
+        model.addAttribute("utilisateurs", utilisateurs);
+        model.addAttribute("bdd_utilisateur", new Utilisateur());
+        model.addAttribute("roles", Role.values());
+
+        return "admin_utilisateurs";
     }
 
 
@@ -295,5 +349,15 @@ public class UtilisateurController {
     @ExceptionHandler(NotUserException.class)
     public RedirectView notConnectedException(NotUserException e) {
         return new RedirectView("/", true);
+    }
+
+    @ExceptionHandler(UpdateAccountException.class)
+    public ModelAndView updateAccountException(UpdateAccountException e) {
+        final ModelAndView modelAndView = new ModelAndView();
+        modelAndView.addObject("erreur", e.getMessage());
+        modelAndView.addObject("commandes", utilisateurService.getCommandes(e.getUtilisateur()));
+        modelAndView.addObject("utilisateur", e.getUtilisateur());
+        modelAndView.setViewName("compte-error");
+        return modelAndView;
     }
 }

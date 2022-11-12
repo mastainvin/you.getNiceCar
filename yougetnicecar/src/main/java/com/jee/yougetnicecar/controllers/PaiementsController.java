@@ -1,8 +1,7 @@
 package com.jee.yougetnicecar.controllers;
 
 import com.jee.yougetnicecar.dtos.CarteBleueDto;
-import com.jee.yougetnicecar.exceptions.CarteBleueNotFoundException;
-import com.jee.yougetnicecar.exceptions.NoMoneyException;
+import com.jee.yougetnicecar.exceptions.PaiementException;
 import com.jee.yougetnicecar.models.Produit;
 import com.jee.yougetnicecar.models.Utilisateur;
 import com.jee.yougetnicecar.services.LogiqueMetierService;
@@ -10,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
 
 import static com.jee.yougetnicecar.Utils.checkUser;
 
@@ -40,9 +40,9 @@ public class PaiementsController {
         checkUser(model);
 
         if(carteBleueDto.getNumero() == null || carteBleueDto.getDateExpiration() == null || carteBleueDto.getCryptogramme() == null || carteBleueDto.getNom() == null || carteBleueDto.getPrenom() == null) {
-            model.addAttribute("error", "Veuillez remplir tous les champs.");
+            model.addAttribute("erreur", "Veuillez remplir tous les champs.");
             model.addAttribute("montant", model.getAttribute("montant"));
-
+            model.addAttribute("utilisateur", model.getAttribute("utilisateur"));
             model.addAttribute("carteBleueDto", model.getAttribute("carteBleueDto"));
             return "paiements-error";
         }
@@ -59,20 +59,17 @@ public class PaiementsController {
         return "paiement_accepte";
     }
 
-    @ExceptionHandler(NoMoneyException.class)
-    public String handleNoMoneyException(Model model) {
-        model.addAttribute("erreur", "Vous n'avez pas assez d'argent pour payer.");
-        model.addAttribute("carteBleueDto", model.getAttribute("carteBleueDto"));
 
-        return "paiements-error";
-    }
 
-    @ExceptionHandler(CarteBleueNotFoundException.class)
-    public String handleCarteBleueNotFoundException(Model model) {
-        model.addAttribute("erreur", "Carte bleue non trouvée.");
-        model.addAttribute("carteBleueDto", model.getAttribute("carteBleueDto"));
+    @ExceptionHandler(PaiementException.class)
+    public ModelAndView handleCarteBleueNotFoundException(PaiementException e) {
+        ModelAndView modelAndView = new ModelAndView("paiements-error");
+        modelAndView.addObject("erreur", e.getMessage());
+        modelAndView.addObject("carteBleueDto", e.getCarteBleueDto());
+        modelAndView.addObject("montant", e.getMontant());
+        modelAndView.addObject("utilisateur", e.getUtilisateur());
 
-        return "paiements-error";
+        return modelAndView;
     }
 
 }

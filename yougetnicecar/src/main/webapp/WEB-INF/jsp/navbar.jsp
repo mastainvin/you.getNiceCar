@@ -49,7 +49,13 @@
                         style="background-color: rgb(50,50,50); color: white; margin-right: 10px; border-radius: 15px;"
                         class="mdl-button" onclick="location.href='/produit/admin'">
                     <i style="color: white;" class="mdl-icon-toggle__label material-icons">manage_accounts</i>
-                    Administration
+                    Administration - Produits
+                </button>
+                <button type="submit"
+                        style="background-color: rgb(50,50,50); color: white; margin-right: 10px; border-radius: 15px;"
+                        class="mdl-button" onclick="location.href='/admin/users'">
+                    <i style="color: white;" class="mdl-icon-toggle__label material-icons">manage_accounts</i>
+                    Administration - Utilisateurs
                 </button>
             </c:if>
         </c:if>
