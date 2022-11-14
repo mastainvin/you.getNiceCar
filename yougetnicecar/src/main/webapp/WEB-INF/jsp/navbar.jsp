@@ -45,18 +45,17 @@
                 <i style="color: white;" class="mdl-icon-toggle__label material-icons">logout</i> Deconnexion
             </button>
             <c:if test="${utilisateur.role == 'ADMIN'}">
-                <button type="submit"
-                        style="background-color: rgb(50,50,50); color: white; margin-right: 10px; border-radius: 15px;"
-                        class="mdl-button" onclick="location.href='/produit/admin'">
-                    <i style="color: white;" class="mdl-icon-toggle__label material-icons">manage_accounts</i>
-                    Administration - Produits
-                </button>
-                <button type="submit"
-                        style="background-color: rgb(50,50,50); color: white; margin-right: 10px; border-radius: 15px;"
-                        class="mdl-button" onclick="location.href='/admin/users'">
-                    <i style="color: white;" class="mdl-icon-toggle__label material-icons">manage_accounts</i>
-                    Administration - Utilisateurs
-                </button>
+	            <button id="demo-menu-lower-right" class="mdl-button mdl-js-button mdl-button--icon"><i style="color: white;" class="material-icons">manage_accounts</i></button>
+				<ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect" for="demo-menu-lower-right">
+					<li>
+						<button style="width: 100% !important;" type="submit" class="mdl-button" onclick="location.href='/produit/admin'">
+							Produits
+                		</button>
+                		<button type="submit" class="mdl-button" onclick="location.href='/admin/users'">
+                    		Utilisateurs
+                		</button>
+                	</li>
+				</ul>
             </c:if>
         </c:if>
         <c:if test="${utilisateur.login == null}">
