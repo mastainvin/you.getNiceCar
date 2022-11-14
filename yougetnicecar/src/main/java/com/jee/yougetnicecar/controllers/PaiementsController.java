@@ -62,7 +62,7 @@ public class PaiementsController {
 
 
     @ExceptionHandler(PaiementException.class)
-    public ModelAndView handleCarteBleueNotFoundException(PaiementException e) {
+    public ModelAndView carteBleueException(PaiementException e) {
         ModelAndView modelAndView = new ModelAndView("paiements-error");
         modelAndView.addObject("erreur", e.getMessage());
         modelAndView.addObject("carteBleueDto", e.getCarteBleueDto());

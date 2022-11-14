@@ -1,8 +1,8 @@
 package com.jee.yougetnicecar.exceptions;
 
-public class NotUserException extends RuntimeException {
+public class NotConnectedException extends RuntimeException {
 
-    public NotUserException() {
+    public NotConnectedException() {
         super("Vous n'êtes pas utilisateur");
     }
 

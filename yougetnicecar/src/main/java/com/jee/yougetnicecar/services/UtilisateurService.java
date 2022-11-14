@@ -1,17 +1,18 @@
 package com.jee.yougetnicecar.services;
 
 import com.jee.yougetnicecar.dtos.CommandeDto;
+import com.jee.yougetnicecar.dtos.UtilisateurConnexionDto;
 import com.jee.yougetnicecar.dtos.UtilisateurInscriptionDto;
+import com.jee.yougetnicecar.exceptions.ConnexionException;
+import com.jee.yougetnicecar.exceptions.ResourceNotFoundException;
+import com.jee.yougetnicecar.exceptions.UpdateAccountException;
 import com.jee.yougetnicecar.models.*;
 import com.jee.yougetnicecar.repositories.PanierRepository;
 import com.jee.yougetnicecar.repositories.UtilisateurRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 
 @Service
 public class UtilisateurService {
@@ -21,6 +22,25 @@ public class UtilisateurService {
 
     @Autowired
     private PanierRepository panierRepository;
+
+    protected Utilisateur verifyUtilisateur(Long userID) throws ResourceNotFoundException {
+        Optional<Utilisateur> utilisateur = utilisateurRepository.findById(userID);
+        if (utilisateur.isEmpty()) {
+            throw new ResourceNotFoundException("Utilisateur with id " + userID + " not found.");
+        }
+        return utilisateur.get();
+    }
+
+    public Utilisateur connexion(UtilisateurConnexionDto utilisateurConnexionDto) {
+        Optional<Utilisateur> utilisateurOptional = utilisateurRepository.findByLoginAndPassword(utilisateurConnexionDto.getUsername(), utilisateurConnexionDto.getPassword());
+
+        if (utilisateurOptional.isPresent()) {
+            return utilisateurOptional.get();
+        } else {
+            throw new ConnexionException("Utilisateur ou mot de passe incorrect", utilisateurConnexionDto);
+        }
+
+    }
 
     public Utilisateur creerUtilisateur(UtilisateurInscriptionDto utilisateurInscriptionDto) {
         Panier panierCourant = new Panier();
@@ -75,4 +95,37 @@ public class UtilisateurService {
         return commandeDtos;
     }
 
+    public void modifierCompte(Utilisateur utilisateur, String nom, String prenom, String login) {
+        if(!nom.equals("")){
+            if(this.loginExiste(login) && !Objects.equals(utilisateur.getLogin(), login)){
+                throw new UpdateAccountException("Ce nom d'utilisateur est déjà utilisé", utilisateur);
+            }
+            utilisateur.setNom(nom);
+        }
+        if(!prenom.equals("")){
+            utilisateur.setPrenom(prenom);
+        }
+        if(!login.equals("")){
+            utilisateur.setLogin(login);
+        }
+
+        utilisateurRepository.save(utilisateur);
+    }
+
+    public void modifierUtilisateurAdmin(Utilisateur newUtilisateur, Long userId) {
+        Optional<Utilisateur> utilisateurOptional = utilisateurRepository.findById(userId);
+
+        if(utilisateurOptional.isPresent()) {
+            Utilisateur utilisateur = utilisateurOptional.get();
+            utilisateur.setNom(newUtilisateur.getNom());
+            utilisateur.setPrenom(newUtilisateur.getPrenom());
+            utilisateur.setLogin(newUtilisateur.getLogin());
+            utilisateur.setRole(newUtilisateur.getRole());
+            utilisateurRepository.save(utilisateur);
+        }
+    }
+
+    public List<Utilisateur> listeUtilisateurs() {
+        return utilisateurRepository.findAll();
+    }
 }

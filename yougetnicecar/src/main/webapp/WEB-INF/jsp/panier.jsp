@@ -14,7 +14,7 @@
         crossorigin="anonymous"></script>
 <script>
     function toSubmit(data, panierKey) {
-        $("#formSoftware").attr("action", "/modifierpanier/" + panierKey + "/" + data);
+        $("#formSoftware").attr("action", "/panier/modifier/" + panierKey + "/" + data);
         $("#formSoftware").submit();
     }
 </script>
