@@ -43,7 +43,7 @@
                                         </form:form>
                                     </c:if>
                                 </div>
-                                <div style="position: absolute; bottom: 10px; right: 15px; width: 50%; text-align: right;">
+                                <div style="position: absolute; bottom: 10px; right: 15px; width: 25%; text-align: right;">
                                     <span><fmt:setLocale value="fr_FR"/><fmt:formatNumber value="${produit.prix}" type="currency" currencySymbol="€"/></span>
                                 </div>
                             </div>
