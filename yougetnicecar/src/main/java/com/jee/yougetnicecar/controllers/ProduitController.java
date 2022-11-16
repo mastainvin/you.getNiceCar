@@ -14,8 +14,10 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import java.util.stream.Collectors;
 
 import static com.jee.yougetnicecar.Utils.checkAdmin;
 
@@ -33,9 +35,17 @@ public class ProduitController {
     // Utilisateur normal
 
     @GetMapping("/boutique")
-    public String voirLaBoutique(Model model) {
-        model.addAttribute("produits", produitService.getProduits());
+    public String voirLaBoutique(Model model, @RequestParam(value="marque", required = false) String nomMarqueFiltre, @RequestParam(value="prix_max", required = false) Integer prixMaxFiltre, @RequestParam(value="prix_min", required = false) Integer prixMinFiltre, @RequestParam(value="motorisation", required = false) String nomMotorisationFiltre, @RequestParam(value="annee", required = false) Integer anneeFiltre) {
+        model.addAttribute("marque", Objects.requireNonNullElse(nomMarqueFiltre, "all"));
+        List<Produit> produits = produitService.getProduits();
+        model.addAttribute("produits", produits);
         model.addAttribute("marques", produitService.getMarques());
+        model.addAttribute("motorisations", Motorisation.values());
+        model.addAttribute("annees", produits.stream().map(Produit::getAnnee).distinct().collect(Collectors.toCollection(ArrayList::new)));
+        model.addAttribute("prix_max", Objects.requireNonNullElse(prixMaxFiltre, 10000000));
+        model.addAttribute("prix_min", Objects.requireNonNullElse(prixMinFiltre, 0));
+        model.addAttribute("annee", Objects.requireNonNullElse(anneeFiltre, 0));
+        model.addAttribute("motorisation", Objects.requireNonNullElse(nomMotorisationFiltre, "all"));
         return "boutique";
     }
 
