@@ -65,7 +65,7 @@
                 <form:input type="text" path="prenom" class="mdl-textfield__input"/>
             </div>
             <button style="background-color: rgb(50,50,50); color: white; border-radius: 15px;" type="submit"
-                    class="mdl-button mdl-button--colored mdl-js-button">SUBMIT
+                    class="mdl-button mdl-button--colored mdl-js-button">INSCRIPTION
             </button>
         </div>
         </form:form>
