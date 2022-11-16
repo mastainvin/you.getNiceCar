@@ -27,7 +27,7 @@
         }
     </style>
 </head>
-<body style="font-family: 'Montserrat', sans-serif; background: rgb(40,40,40);">
+<body style="font-family: 'Montserrat', sans-serif; background: rgb(40,40,40);" onload="imgPourFirefox()">
 
 <div class="mdl-layout mdl-js-layout mdl-layout--fixed-header">
     <jsp:include page="navbar.jsp"/>

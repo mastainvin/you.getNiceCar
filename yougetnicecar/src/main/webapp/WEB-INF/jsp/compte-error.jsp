@@ -29,7 +29,7 @@
 <head>
     <title>Compte</title>
 </head>
-<body>
+<body onload="imgPourFirefox()">
 
 <div style="color: red;">
     ${erreur}

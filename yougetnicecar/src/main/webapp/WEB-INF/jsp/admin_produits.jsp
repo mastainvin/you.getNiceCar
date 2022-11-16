@@ -10,7 +10,7 @@
         padding: 20px;
     }
 </style>
-<body>
+<body onload="imgPourFirefox()">
 
 <div class="mdl-layout mdl-js-layout mdl-layout--fixed-header">
     <jsp:include page="navbar.jsp"/>

@@ -7,7 +7,7 @@
 <head>
     <title>Admin Utilisateurs</title>
 </head>
-<body>
+<body onload="imgPourFirefox()">
 <div class="mdl-layout mdl-js-layout mdl-layout--fixed-header">
     <jsp:include page="navbar.jsp"/>
     <main class="mdl-layout__content ">

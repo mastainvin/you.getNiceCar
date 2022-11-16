@@ -30,7 +30,7 @@
     <title>Compte</title>
 </head>
 
-<body style="background: rgb(40,40,40);">
+<body style="background: rgb(40,40,40);" onload="imgPourFirefox()">
 
 <div style="display: block; overflow: auto;" class="mdl-layout mdl-js-layout mdl-color--grey-100">
     <jsp:include page="navbar.jsp"/>

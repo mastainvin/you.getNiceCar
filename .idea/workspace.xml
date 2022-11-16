@@ -5,42 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="4d93e716-3644-42b6-91bc-8bcb29259bdc" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/yougetnicecar/src/main/web/WEB-INF/web.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/yougetnicecar/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/yougetnicecar/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/yougetnicecar/src/main/java/com/jee/yougetnicecar/FileUploadUtil.java" beforeDir="false" afterPath="$PROJECT_DIR$/yougetnicecar/src/main/java/com/jee/yougetnicecar/FileUploadUtil.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/yougetnicecar/src/main/java/com/jee/yougetnicecar/Utils.java" beforeDir="false" afterPath="$PROJECT_DIR$/yougetnicecar/src/main/java/com/jee/yougetnicecar/Utils.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/yougetnicecar/src/main/java/com/jee/yougetnicecar/YougetnicecarApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/yougetnicecar/src/main/java/com/jee/yougetnicecar/YougetnicecarApplication.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/yougetnicecar/src/main/java/com/jee/yougetnicecar/configuration/MvcConfiguration.java" beforeDir="false" afterPath="$PROJECT_DIR$/yougetnicecar/src/main/java/com/jee/yougetnicecar/configuration/MvcConfiguration.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/yougetnicecar/src/main/java/com/jee/yougetnicecar/controllers/AccueilController.java" beforeDir="false" afterPath="$PROJECT_DIR$/yougetnicecar/src/main/java/com/jee/yougetnicecar/controllers/AccueilController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/yougetnicecar/src/main/java/com/jee/yougetnicecar/controllers/MarqueController.java" beforeDir="false" afterPath="$PROJECT_DIR$/yougetnicecar/src/main/java/com/jee/yougetnicecar/controllers/MarqueController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/yougetnicecar/src/main/java/com/jee/yougetnicecar/controllers/PaiementsController.java" beforeDir="false" afterPath="$PROJECT_DIR$/yougetnicecar/src/main/java/com/jee/yougetnicecar/controllers/PaiementsController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/yougetnicecar/src/main/java/com/jee/yougetnicecar/controllers/PanierController.java" beforeDir="false" afterPath="$PROJECT_DIR$/yougetnicecar/src/main/java/com/jee/yougetnicecar/controllers/PanierController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/yougetnicecar/src/main/java/com/jee/yougetnicecar/controllers/ProduitController.java" beforeDir="false" afterPath="$PROJECT_DIR$/yougetnicecar/src/main/java/com/jee/yougetnicecar/controllers/ProduitController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/yougetnicecar/src/main/java/com/jee/yougetnicecar/controllers/UtilisateurController.java" beforeDir="false" afterPath="$PROJECT_DIR$/yougetnicecar/src/main/java/com/jee/yougetnicecar/controllers/UtilisateurController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/yougetnicecar/src/main/java/com/jee/yougetnicecar/exceptions/ConnexionException.java" beforeDir="false" afterPath="$PROJECT_DIR$/yougetnicecar/src/main/java/com/jee/yougetnicecar/exceptions/ConnexionException.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/yougetnicecar/src/main/java/com/jee/yougetnicecar/exceptions/InscriptionException.java" beforeDir="false" afterPath="$PROJECT_DIR$/yougetnicecar/src/main/java/com/jee/yougetnicecar/exceptions/InscriptionException.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/yougetnicecar/src/main/java/com/jee/yougetnicecar/exceptions/NotAdminException.java" beforeDir="false" afterPath="$PROJECT_DIR$/yougetnicecar/src/main/java/com/jee/yougetnicecar/exceptions/NotAdminException.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/yougetnicecar/src/main/java/com/jee/yougetnicecar/exceptions/NotUserException.java" beforeDir="false" afterPath="$PROJECT_DIR$/yougetnicecar/src/main/java/com/jee/yougetnicecar/exceptions/NotUserException.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/yougetnicecar/src/main/java/com/jee/yougetnicecar/exceptions/ResourceNotFoundException.java" beforeDir="false" afterPath="$PROJECT_DIR$/yougetnicecar/src/main/java/com/jee/yougetnicecar/exceptions/ResourceNotFoundException.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/yougetnicecar/src/main/java/com/jee/yougetnicecar/services/LogiqueMetierService.java" beforeDir="false" afterPath="$PROJECT_DIR$/yougetnicecar/src/main/java/com/jee/yougetnicecar/services/LogiqueMetierService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/yougetnicecar/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/yougetnicecar/src/main/resources/application.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/yougetnicecar/src/main/webapp/WEB-INF/jsp/accueil.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/yougetnicecar/src/main/webapp/WEB-INF/jsp/accueil.jsp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/yougetnicecar/src/main/webapp/WEB-INF/jsp/admin_marques-error.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/yougetnicecar/src/main/webapp/WEB-INF/jsp/admin_marques-error.jsp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/yougetnicecar/src/main/webapp/WEB-INF/jsp/admin_produits-error.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/yougetnicecar/src/main/webapp/WEB-INF/jsp/admin_produits-error.jsp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/yougetnicecar/src/main/webapp/WEB-INF/jsp/admin_produits.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/yougetnicecar/src/main/webapp/WEB-INF/jsp/admin_produits.jsp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/yougetnicecar/src/main/webapp/WEB-INF/jsp/admin_utilisateurs.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/yougetnicecar/src/main/webapp/WEB-INF/jsp/admin_utilisateurs.jsp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/yougetnicecar/src/main/webapp/WEB-INF/jsp/boutique.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/yougetnicecar/src/main/webapp/WEB-INF/jsp/boutique.jsp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/yougetnicecar/src/main/webapp/WEB-INF/jsp/compte.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/yougetnicecar/src/main/webapp/WEB-INF/jsp/compte.jsp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/yougetnicecar/src/main/webapp/WEB-INF/jsp/connexion-error.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/yougetnicecar/src/main/webapp/WEB-INF/jsp/connexion-error.jsp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/yougetnicecar/src/main/webapp/WEB-INF/jsp/connexion.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/yougetnicecar/src/main/webapp/WEB-INF/jsp/connexion.jsp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/yougetnicecar/src/main/webapp/WEB-INF/jsp/inscription-error.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/yougetnicecar/src/main/webapp/WEB-INF/jsp/inscription-error.jsp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/yougetnicecar/src/main/webapp/WEB-INF/jsp/inscription.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/yougetnicecar/src/main/webapp/WEB-INF/jsp/inscription.jsp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/yougetnicecar/src/main/webapp/WEB-INF/jsp/navbar.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/yougetnicecar/src/main/webapp/WEB-INF/jsp/navbar.jsp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/yougetnicecar/src/main/webapp/WEB-INF/jsp/paiements.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/yougetnicecar/src/main/webapp/WEB-INF/jsp/paiements.jsp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/yougetnicecar/src/main/webapp/WEB-INF/jsp/panier.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/yougetnicecar/src/main/webapp/WEB-INF/jsp/panier.jsp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/yougetnicecar/src/test/java/com/jee/yougetnicecar/YougetnicecarApplicationTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/yougetnicecar/src/test/java/com/jee/yougetnicecar/YougetnicecarApplicationTests.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -61,17 +26,22 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RequestMappingsPanelOrder0": "0",
-    "RequestMappingsPanelOrder1": "1",
-    "RequestMappingsPanelWidth0": "75",
-    "RequestMappingsPanelWidth1": "75",
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "WebServerToolWindowFactoryState": "false"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RequestMappingsPanelOrder0&quot;: &quot;0&quot;,
+    &quot;RequestMappingsPanelOrder1&quot;: &quot;1&quot;,
+    &quot;RequestMappingsPanelWidth0&quot;: &quot;75&quot;,
+    &quot;RequestMappingsPanelWidth1&quot;: &quot;75&quot;,
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;
   }
-}]]></component>
+}</component>
   <component name="RunManager">
     <configuration name="Application" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
       <module name="you.getNiceCar" />
@@ -90,6 +60,9 @@
       <option name="presentableId" value="Default" />
       <updated>1668101725247</updated>
       <workItem from="1668101726907" duration="173000" />
+      <workItem from="1668433837809" duration="519000" />
+      <workItem from="1668434889411" duration="13000" />
+      <workItem from="1668436168380" duration="4000" />
     </task>
     <servers />
   </component>

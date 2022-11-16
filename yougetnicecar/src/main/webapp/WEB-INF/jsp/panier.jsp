@@ -8,7 +8,7 @@
 <head>
     <title>Panier</title>
 </head>
-<body style="font-family: 'Montserrat', sans-serif; background: rgb(40,40,40);">
+<body style="font-family: 'Montserrat', sans-serif; background: rgb(40,40,40);" onload="imgPourFirefox()">
 
 <script src="https://code.jquery.com/jquery-3.6.1.js" integrity="sha256-3zlB5s2uwoUzrXK3BT7AX3FyvojsraNFxCc2vC/7pNI="
         crossorigin="anonymous"></script>

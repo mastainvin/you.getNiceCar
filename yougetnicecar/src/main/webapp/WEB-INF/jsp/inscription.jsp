@@ -32,7 +32,7 @@
 <head>
     <title>Inscription</title>
 </head>
-<body>
+<body onload="imgPourFirefox()">
 
 <%--@elvariable id="utilisateurInscriptionDto" type="com.jee.yougetnicecar.dtos.UtilisateurInscriptionDto"--%>
 <div class="mdl-layout mdl-js-layout mdl-color--grey-100">
