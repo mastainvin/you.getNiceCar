@@ -33,7 +33,7 @@
 <head>
     <title>Connexion</title>
 </head>
-<body>
+<body onload="imgPourFirefox()">
 
 <%--@elvariable id="utilisateurConnexionDto" type="com.jee.yougetnicecar.dtos.UtilisateurConnexionDto"--%>
 

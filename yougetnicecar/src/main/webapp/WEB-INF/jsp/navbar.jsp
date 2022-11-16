@@ -27,7 +27,7 @@
         <div class="mdl-navigation__link mdl-layout-title" type="submit" onclick="location.href='/'"/>
         <img src="https://www.pngmart.com/files/22/Car-Logo-PNG-Image.png"
              style="height: 70%; filter: invert(100%) sepia(0%) saturate(0%) hue-rotate(253deg) brightness(108%) contrast(92%);"/>
-        <div style="position: absolute; left: 5px; top: 10px; font-style: italic;">you.getNiceCar()</div>
+        <div style="position: absolute; left: 5px; top: 10px; font-style: italic; cursor: default">you.getNiceCar()</div>
     </div>
     <!-- Add spacer, to align navigation to the right -->
     <div class="mdl-layout-spacer"></div>
@@ -75,16 +75,16 @@
 </header>
 
 <div class="mdl-layout__drawer">
-    <span class="mdl-layout-title">you.getNiceCar()</span>
+    <span class="mdl-layout-title" style="cursor: default">you.getNiceCar()</span>
     <nav class="mdl-navigation">
         <a class="mdl-navigation__link" type="button" onclick="location.href='/'">
-            <i class="mdl-icon-toggle__label material-icons">home</i> Accueil</a>
+            <i class="mdl-icon-toggle__label material-icons">home</i> <span style="cursor: pointer"> Accueil</span></a>
         <a class="mdl-navigation__link" type="button" onclick="location.href='/produit/boutique'">
-            <i class="mdl-icon-toggle__label material-icons">shopping_cart</i> Boutique</a>
+            <i class="mdl-icon-toggle__label material-icons">shopping_cart</i> <span style="cursor: pointer"> Boutique</span></a>
         <a class="mdl-navigation__link" type="button" onclick="location.href='/panier'">
-            <i class="mdl-icon-toggle__label material-icons">shopping_bag</i> Panier</a>
+            <i class="mdl-icon-toggle__label material-icons">shopping_bag</i> <span style="cursor: pointer"> Panier</span></a>
         <a class="mdl-navigation__link" type="button" onclick="location.href='/compte'">
-            <i class="mdl-icon-toggle__label material-icons">person</i> Compte</a>
+            <i class="mdl-icon-toggle__label material-icons">person</i> <span style="cursor: pointer"> Compte</span></a>
     </nav>
 </div>
 

@@ -11,13 +11,14 @@
     <title>Accueil</title>
 </head>
 
-<body style="font-family: 'Montserrat'; background: rgb(40,40,40);">
+<body   onload="imgPourFirefox()" style="font-family: 'Montserrat'; background: rgb(40,40,40);">
 <div class="mdl-layout mdl-js-layout">
     <jsp:include page="/WEB-INF/jsp/navbar.jsp"/>
     <main class="mdl-layout__content">
         <div style="background: url('https://www.hdcarwallpapers.com/walls/alpine_a110_r_2022_4k_8k-HD.jpg');
 		width: 100%; height: 100vh; background-size: cover; background-position: center; position: relative;">
         </div>
+
         <div style="width: 50%; border: solid white 2px; border-radius: 25px; background-color: rgba(0, 0, 0, 0.5); position: absolute; left: 0; right: 0; margin-left: auto; margin-right: auto; top: 30%;  padding: 25px; text-align: center;">
             <div style="color: white; font-size: xxx-large;">Bienvenue sur you.getNiceCar()</div>
             </br></br>

@@ -31,7 +31,7 @@
 <head>
     <title>Connexion</title>
 </head>
-<body style="background: rgb(40,40,40);">
+<body style="background: rgb(40,40,40);" onload="imgPourFirefox()">
 
 <%--@elvariable id="utilisateurConnexionDto" type="com.jee.yougetnicecar.dtos.UtilisateurConnexionDto"--%>
 
