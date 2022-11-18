@@ -7,7 +7,7 @@
 <head>
     <title>Paiement accepté</title>
 </head>
-<body style="font-family: 'Montserrat', sans-serif;">
+<body style="font-family: 'Montserrat', sans-serif;" onload="imgPourFirefox()">
 
 <div class="mdl-layout mdl-js-layout mdl-layout--fixed-header">
     <jsp:include page="navbar.jsp"/>

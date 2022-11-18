@@ -28,7 +28,7 @@
 <head>
     <title>Paiement</title>
 </head>
-<body>
+<body onload="imgPourFirefox()">
 
 <div class="mdl-layout mdl-js-layout">
     <jsp:include page="navbar.jsp"/>
