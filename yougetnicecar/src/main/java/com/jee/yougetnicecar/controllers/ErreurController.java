@@ -22,6 +22,5 @@ public class ErreurController implements ErrorController {
             model.addAttribute("numerreur", statusCode);
         }
         return "erreur";
-
     }
 }

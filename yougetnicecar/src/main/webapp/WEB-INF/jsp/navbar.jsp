@@ -25,9 +25,17 @@
     <div class="mdl-layout__header-row">
         <!-- Title -->
         <div class="mdl-navigation__link mdl-layout-title" type="submit" onclick="location.href='/'"/>
-        <img src="https://www.pngmart.com/files/22/Car-Logo-PNG-Image.png"
+        <img id="imgLogo" src="https://www.pngmart.com/files/22/Car-Logo-PNG-Image.png"
              style="height: 70%; filter: invert(100%) sepia(0%) saturate(0%) hue-rotate(253deg) brightness(108%) contrast(92%);"/>
         <div style="position: absolute; left: 5px; top: 10px; font-style: italic; cursor: default">you.getNiceCar()</div>
+        <script>
+            function imgPourFirefox() {
+                let itgo = window.navigator.userAgent;
+                if(itgo.includes("Firefox")){
+                    document.getElementById("imgLogo").style.width="87px";
+                }
+            }
+        </script>
     </div>
     <!-- Add spacer, to align navigation to the right -->
     <div class="mdl-layout-spacer"></div>
